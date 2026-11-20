@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { vision } from '../data/site';
+const numerals = ['i.', 'ii.', 'iii.', 'iv.'];
+---
+<Base title="Vision and Plans | Fazle Bary Nayem" description="Where Fazle Bary Nayem is taking Abedin Tech, Callinva and SaleAnto: the thinking behind the work, the roadmap for each venture, and what it is built with.">
+  <PageHero index="Vision" eyebrow="Where this is going" title="AI that does the work <em>between the tools.</em>" lead="The thinking behind what I'm building, where each venture is heading, and what we are building it with." />
+
+  <section class="section thesis">
+    <div class="wrap">
+      <div class="marker"><span class="label">(01)</span><span class="label">The thesis</span></div>
+      <p class="big" data-scrub-words>{vision.thesis}</p>
+    </div>
+  </section>
+
+  <section class="section beliefs-sec">
+    <div class="wrap">
+      <div class="marker"><span class="label">(02)</span><span class="label">What I believe</span></div>
+      <ol class="beliefs">
+        {vision.beliefs.map((b, i) => (
+          <li class="reveal">
+            <span class="num">{numerals[i]}</span>
+            <h2>{b.title}</h2>
+            <p>{b.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section night roadmap">
+    <div class="wrap">
+      <div class="marker"><span class="label">(03)</span><span class="label">The plan</span></div>
+      <div class="sec-head">
+        <h2 class="h-section" data-split>Now, next, <em>and later.</em></h2>
+        <p class="lead">Three horizons, applied to each venture. The order matters more than the dates: each step earns the right to take the next one.</p>
+      </div>
+
+      <ol class="horizons" aria-label="Horizons">
+        {vision.horizons.map((h, i) => (
+          <li><span class="hk">{h.key}</span><span class="label">{h.label}</span></li>
+        ))}
+      </ol>
+
+      {vision.roadmap.map((r, i) => (
+        <article class="venture reveal">
+          <header class="vh">
+            <span class="label">0{i + 1}</span>
+            <h3>{r.venture}</h3>
+            <span class="role"><em>{r.role}</em></span>
+          </header>
+          <div class="steps">
+            <div><span class="label sk">Now</span><p>{r.now}</p></div>
+            <div><span class="label sk">Next</span><p>{r.next}</p></div>
+            <div><span class="label sk">Later</span><p>{r.later}</p></div>
+          </div>
+          <div class="with">
+            <span class="label">Built with</span>
+            <ul>{r.with.map((w) => <li>{w}</li>)}</ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split-2">
+      <div>
+        <div class="marker"><span class="label">(04)</span><span class="label">What won't change</span></div>
+        <h2 class="h-section side-h" data-split>How we'll <em>build it</em></h2>
+      </div>
+      <ol class="commit">
+        {vision.commitments.map((c, i) => <li class="reveal"><span class="num">{numerals[i]}</span><p>{c}</p></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section invite-sec">
+    <div class="wrap">
+      <div class="marker"><span class="label">(05)</span><span class="label">Who I'd like to hear from</span></div>
+      <ul class="invite">
+        {vision.invite.map((v) => <li class="reveal"><strong>{v.who}</strong> {v.what}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand eyebrow="Build it with us" title="Want to be part of <em>what comes next?</em>" body="If you want to pilot a product, partner on delivery, or talk about where this is heading, send a short note with some context." label="Start a conversation" />
+</Base>
+
+<style>
+  .big { font-family: var(--serif); font-weight: 330; font-size: clamp(32px, 4.4vw, 70px); line-height: 1.06; letter-spacing: -0.03em; margin: 48px 0 0; max-width: 24ch; font-variation-settings: 'opsz' 144, 'SOFT' 30; }
+  .thesis { padding-top: 0; }
+
+  .beliefs-sec { background: var(--paper-2); }
+  .beliefs { list-style: none; margin: 48px 0 0; padding: 0; display: grid; gap: 0 40px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .beliefs li { padding: 28px 0 12px; border-top: 1px solid var(--rule-strong); }
+  .num { display: block; font-family: var(--serif); font-style: italic; font-size: 30px; color: var(--red); margin-bottom: 36px; font-variation-settings: 'opsz' 48, 'SOFT' 100, 'WONK' 1; }
+  .beliefs h2 { font-size: clamp(28px, 2.5vw, 38px); margin-bottom: 16px; }
+  .beliefs p { color: var(--ink-2); margin: 0; }
+
+  .horizons { list-style: none; margin: 0 0 24px; padding: 0; display: none; }
+  @media (min-width: 960px) {
+    .horizons { display: grid; grid-template-columns: 240px repeat(3, 1fr); gap: 32px; position: relative; padding-bottom: 28px; }
+    .horizons::before { content: ''; grid-column: 1; }
+    .horizons::after { content: ''; position: absolute; left: calc(240px + 32px); right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, var(--red), var(--rule-strong)); }
+    .horizons li { display: grid; gap: 6px; position: relative; }
+    .horizons li::after { content: ''; position: absolute; left: 0; bottom: -32px; width: 9px; height: 9px; border-radius: 50%; background: var(--night); border: 1px solid var(--night-ink); }
+    .horizons li:first-child::after { background: var(--red); border-color: var(--red); }
+  }
+  .hk { font-family: var(--serif); font-style: italic; font-size: 40px; line-height: 1; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
+
+  .venture { display: grid; gap: 24px 32px; padding: 40px 0; border-top: 1px solid var(--rule); }
+  .venture:last-child { border-bottom: 1px solid var(--rule); }
+  @media (min-width: 960px) { .venture { grid-template-columns: 240px 1fr; } .with { grid-column: 2; } }
+  .vh { display: grid; gap: 8px; align-content: start; }
+  .vh h3 { font-size: clamp(38px, 3.6vw, 56px); letter-spacing: -0.03em; }
+  .role { color: var(--red); font-family: var(--serif); font-size: 20px; }
+  .steps { display: grid; gap: 24px 32px; }
+  @media (min-width: 720px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 960px) { .sk { display: none; } }
+  .steps p { margin: 6px 0 0; color: var(--ink-2); }
+  .steps > div:first-child p { color: inherit; }
+  .with { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 18px; padding-top: 18px; border-top: 1px dashed var(--rule); }
+  .with ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  .with li { font-size: 16px; color: var(--ink-2); }
+  .with li:not(:last-child)::after { content: '/'; color: var(--red); margin-left: 18px; }
+
+  .side-h { margin-top: 40px; max-width: 9ch; }
+  .commit { list-style: none; margin: 0; padding: 0; }
+  .commit li { display: grid; grid-template-columns: 56px 1fr; padding: 22px 0; border-top: 1px solid var(--rule); }
+  .commit li:last-child { border-bottom: 1px solid var(--rule); }
+  .commit .num { margin: 0; font-size: 26px; }
+  .commit p { margin: 0; font-family: var(--serif); font-size: clamp(22px, 2vw, 30px); line-height: 1.25; font-variation-settings: 'opsz' 48; }
+
+  .invite-sec { padding-top: 0; }
+  .invite { list-style: none; margin: 48px 0 0; padding: 0; display: grid; gap: 0 40px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+  .invite li { padding: 22px 0; border-top: 1px solid var(--rule-strong); color: var(--ink-2); }
+  .invite strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 28px; color: var(--ink); margin-bottom: 6px; font-variation-settings: 'opsz' 48; }
+</style>

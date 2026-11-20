@@ -5,7 +5,7 @@ import Portrait from '../components/Portrait.astro';
 import VentureRow from '../components/VentureRow.astro';
 import WorkCard from '../components/WorkCard.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { profile, ventures, projects, principles } from '../data/site';
+import { profile, ventures, projects, principles, vision } from '../data/site';
 const skills = ['AI products', 'Voice agents', 'Business automation', 'Custom software', 'Digital growth', 'SaaS'];
 const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
 ---
@@ -95,6 +95,26 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
     </div>
   </section>
 
+  <section class="section night future">
+    <div class="wrap">
+      <div class="marker"><span class="label">(05)</span><span class="label">Where this is going</span></div>
+      <div class="sec-head">
+        <h2 class="h-section" data-split>AI that does the work <em>between the tools.</em></h2>
+        <p class="lead">{vision.thesis}</p>
+      </div>
+      <ol class="hz">
+        {vision.horizons.map((h, i) => (
+          <li class="reveal">
+            <span class="hk">{h.key}</span>
+            <p class="hl">{h.label}</p>
+            <ul>{vision.roadmap.map((r) => <li><span class="label">{r.venture}</span>{i === 0 ? r.now : i === 1 ? r.next : r.later}</li>)}</ul>
+          </li>
+        ))}
+      </ol>
+      <a href="/vision/" class="ulink all">Read the full vision and plan<Arrow /></a>
+    </div>
+  </section>
+
   <CtaBand />
 </Base>
 
@@ -136,4 +156,15 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
   .num { display: block; font-family: var(--serif); font-style: italic; font-size: 30px; color: var(--red); margin-bottom: 40px; font-variation-settings: 'opsz' 48, 'SOFT' 100, 'WONK' 1; }
   .principles h3 { font-size: clamp(28px, 2.4vw, 36px); margin-bottom: 14px; }
   .principles p { color: var(--ink-2); margin: 0; }
+
+  .future .lead { max-width: 52ch; }
+  .hz { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 32px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .hz > li { padding-top: 24px; border-top: 1px solid var(--rule-strong); }
+  .hz > li:first-child { border-top-color: var(--red); }
+  .hk { font-family: var(--serif); font-style: italic; font-size: 44px; line-height: 1; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
+  .hz > li:first-child .hk { color: var(--red); }
+  .hl { margin: 10px 0 24px; color: var(--muted); }
+  .hz ul { list-style: none; margin: 0 0 40px; padding: 0; }
+  .hz ul li { padding: 14px 0; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: 16px; }
+  .hz ul .label { display: block; margin-bottom: 4px; }
 </style>

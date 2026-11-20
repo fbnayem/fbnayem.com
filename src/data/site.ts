@@ -19,6 +19,7 @@ export const nav = [
   { label: 'About', href: '/about/' },
   { label: 'Ventures', href: '/ventures/' },
   { label: 'Work', href: '/work/' },
+  { label: 'Vision', href: '/vision/' },
   { label: 'Insights', href: '/insights/' },
   { label: 'Connect', href: '/connect/' },
 ];
@@ -187,3 +188,66 @@ export const faqs = [
     a: 'You can send an invitation with the topic, audience, format, and proposed date. Relevant subjects include AI products, business automation, and entrepreneurship.',
   },
 ];
+
+/* Vision and plans. Forward-looking copy: kept as intent, without dates or numbers, until confirmed. */
+export const vision = {
+  thesis:
+    'Most businesses do not need more software. They need the work between their tools to get done: the call that gets answered, the lead that gets followed up, the post that goes out on time. I want to build AI that takes on that work reliably, so small and growing teams can operate with the discipline of much larger ones.',
+  beliefs: [
+    {
+      title: 'AI should finish the job, not start a new one',
+      body: 'The value is in what happens after the answer: the booking made, the record updated, the follow-up sent. I design products around that next step.',
+    },
+    {
+      title: 'Growing businesses deserve serious systems',
+      body: 'Large companies have teams to build automation and integrations. Small and mid-sized businesses should get the same leverage, packaged so they can use it without an engineering department.',
+    },
+    {
+      title: 'Global products can be built from Bangladesh',
+      body: 'I want to show that a team in Bangladesh can design, build and support products that compete internationally, and to create more of that work for capable people here.',
+    },
+  ],
+  horizons: [
+    { key: 'Now', label: 'Prove it in real businesses' },
+    { key: 'Next', label: 'Turn what works into products' },
+    { key: 'Later', label: 'Connect it into one operating layer' },
+  ],
+  roadmap: [
+    {
+      venture: 'Abedin Tech',
+      role: 'The delivery engine',
+      now: 'Delivering AI agents, automation, custom software and digital growth for clients, mainly in the US and UK.',
+      next: 'Turning solutions we build again and again into reusable components, playbooks and packaged automation services.',
+      later: 'Becoming an implementation partner for AI products and for larger technology firms that need a capable delivery team.',
+      with: ['AI agents and workflow automation', 'Custom web and software development', 'CRM, calendar and ecommerce integrations', 'Search and digital growth'],
+    },
+    {
+      venture: 'Callinva',
+      role: 'The conversation layer',
+      now: 'AI calling that answers, qualifies leads, books appointments, follows up and hands off to a person when needed.',
+      next: 'Deeper connections to the CRMs and calendars businesses already use, support for more languages, and clear reporting on what each conversation produced.',
+      later: 'One place that connects every customer conversation, across calls, chat and messaging, to the action that should follow it.',
+      with: ['Voice agents with speech recognition and synthesis', 'Large language models with business rules and guardrails', 'Telephony and messaging channels', 'Human handoff and review tools'],
+    },
+    {
+      venture: 'SaleAnto',
+      role: 'The content workflow',
+      now: 'AI-assisted social content creation and scheduling that keeps posts consistent with a brand.',
+      next: 'Brand profiles the product learns from, approval steps for teams and agencies, and performance insight that shapes the next round of content.',
+      later: 'A content operations system that lets a small team plan, create, approve and publish with the consistency of a full marketing department.',
+      with: ['Generative text and image models', 'Brand guidelines as structured data', 'Scheduling and publishing integrations', 'Team review and approval workflows'],
+    },
+  ],
+  commitments: [
+    'Keep people in control: clear limits on what automation does, and an easy path to a human.',
+    'Measure outcomes the business cares about, not activity.',
+    'Treat customer data carefully and say plainly how it is used.',
+    'Build in public through Insights, including what did not work.',
+  ],
+  invite: [
+    { who: 'Businesses', what: 'who want to be early users or design partners for Callinva and SaleAnto.' },
+    { who: 'Technology firms', what: 'looking for a delivery or implementation partner for AI work.' },
+    { who: 'Investors and advisors', what: 'interested in practical AI products built from Bangladesh.' },
+    { who: 'Engineers and designers', what: 'who want to build products for a global market.' },
+  ],
+};
