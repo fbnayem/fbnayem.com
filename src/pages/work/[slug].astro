@@ -12,11 +12,11 @@ const { project } = Astro.props as { project: Project };
 const others = projects.filter((p) => p.slug !== project.slug);
 ---
 <Base title={`${project.name} | Selected Work | Fazle Bary Nayem`} description={project.summary}>
-  <PageHero eyebrow={`${project.type} · ${project.category}`} title={project.title} lead={project.summary} />
+  <PageHero index={project.type} eyebrow={project.category} title={project.title} lead={project.summary} />
   <section class="section">
     <div class="wrap split-2">
       <aside class="sticky reveal">
-        <div class="card side">
+        <div class="side">
           <p class="k">Project</p><p class="v">{project.name}</p>
           <p class="k">Type</p><p class="v">{project.type === 'Client work' ? 'Client work delivered through Abedin Tech' : 'Owned product'}</p>
           <p class="k">Focus</p><p class="v">{project.category}</p>
@@ -27,36 +27,43 @@ const others = projects.filter((p) => p.slug !== project.slug);
         <h2>The work</h2>
         {project.body.map((p) => <p>{p}</p>)}
         <div class="lesson">
-          <span class="eyebrow">What it taught me</span>
+          <span class="label">What it taught me</span>
           <p>{project.lesson}</p>
         </div>
-        <a href="/work/" class="link-arrow">Back to all work<Arrow /></a>
+        <a href="/work/" class="ulink">Back to all work<Arrow /></a>
       </div>
     </div>
   </section>
   <section class="section more">
     <div class="wrap">
-      <h2 class="h-card" style="margin-bottom:24px">More work</h2>
-      <div class="grid-3">
+      <div class="marker"><span class="label">More work</span></div>
+      <ul class="others">
         {others.map((p) => (
-          <a class="card tilt" data-tilt="6" href={`/work/${p.slug}/`}><span class="glare"></span>
-            <span class={p.type === 'Owned product' ? 'tag' : 'tag neutral'}>{p.type}</span>
-            <h3 class="h-card" style="margin:16px 0 8px">{p.name}</h3>
-            <p style="color:var(--muted);margin:0">{p.summary}</p>
-          </a>
+          <li><a href={`/work/${p.slug}/`}>
+            <span class="oname">{p.name}</span>
+            <span class="osum">{p.summary}</span>
+            <Arrow />
+          </a></li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
   <CtaBand />
 </Base>
 <style>
-  .side .k { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin: 0 0 4px; }
-  .side .v { font-weight: 600; margin: 0 0 20px; }
-  .side .v:last-child { margin-bottom: 0; }
-  .side a { color: var(--lime); }
-  .lesson { margin: 48px 0; padding: 40px; border-radius: var(--radius); background: var(--lime); color: #050608; }
-  .lesson p { color: #050608; font-family: var(--display); font-size: clamp(26px, 2.8vw, 38px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 700; margin: 16px 0 0; }
-  .lesson .eyebrow { color: #050608; }
+  .side .k { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; padding-top: 14px; border-top: 1px solid var(--rule); }
+  .side .v { font-weight: 500; margin: 0 0 20px; }
+  .side a { color: var(--red); }
+  .lesson { margin: 56px 0; padding: 32px 0 32px 28px; border-left: 2px solid var(--red); }
+  .lesson p { color: var(--ink); font-family: var(--serif); font-style: italic; font-size: clamp(28px, 2.8vw, 42px); line-height: 1.12; letter-spacing: -0.02em; margin: 16px 0 0; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
   .more { padding-top: 0; }
+  .others { list-style: none; margin: 24px 0 0; padding: 0; }
+  .others li { border-bottom: 1px solid var(--rule); }
+  .others a { display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; align-items: center; padding: 26px 0; text-decoration: none; }
+  .others a :global(svg) { width: 22px; height: 22px; transition: transform 0.4s var(--ease); }
+  .others a:hover :global(svg) { transform: translateX(6px); color: var(--red); }
+  .oname { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); letter-spacing: -0.03em; line-height: 1; }
+  .others a:hover .oname { font-style: italic; color: var(--red); }
+  .osum { grid-column: 1; color: var(--muted); max-width: 60ch; }
+  @media (min-width: 900px) { .others a { grid-template-columns: 1fr 1.2fr auto; } .osum { grid-column: auto; } }
 </style>

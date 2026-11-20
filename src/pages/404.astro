@@ -4,16 +4,18 @@ import Arrow from '../components/Arrow.astro';
 ---
 <Base title="Page not found | Fazle Bary Nayem" description="This page could not be found." noindex>
   <section class="page-hero nf">
-    <div class="orb" aria-hidden="true"></div>
     <div class="wrap">
-      <span class="eyebrow">404</span>
-      <h1 class="mega">This page could not be found.</h1>
+      <div class="marker"><span class="label">Error 404</span></div>
+      <h1>This page could <em>not be found.</em></h1>
       <p class="lead">You can return to the homepage or explore my work.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:32px">
-        <a href="/" class="btn btn-primary">Back to Home<Arrow /></a>
-        <a href="/work/" class="btn btn-ghost">Explore My Work</a>
+      <div class="acts">
+        <a href="/" class="btn">Back to home<Arrow /></a>
+        <a href="/work/" class="ulink">Explore my work</a>
       </div>
     </div>
   </section>
 </Base>
-<style>.nf { min-height: 80svh; display: flex; align-items: center; }</style>
+<style>
+  .nf { min-height: 80svh; display: flex; align-items: center; }
+  .acts { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; margin-top: 32px; }
+</style>

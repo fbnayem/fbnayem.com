@@ -1,12 +1,14 @@
 ---
-const { eyebrow, title, lead } = Astro.props;
+const { eyebrow, title, lead, index = '' } = Astro.props;
 ---
 <section class="page-hero">
-  <div class="orb" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="eyebrow">{eyebrow}</span>
-    <h1 class="h-display" data-split="load">{title}</h1>
+    <div class="marker"><span class="label">{index}</span><span class="label">{eyebrow}</span></div>
+    <h1 data-split="load" set:html={title} />
     {lead && <p class="lead reveal">{lead}</p>}
     <slot />
   </div>
 </section>
+<style>
+  .marker .label:first-child:empty { display: none; }
+</style>

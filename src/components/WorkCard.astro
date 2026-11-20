@@ -3,32 +3,36 @@ import Arrow from './Arrow.astro';
 import type { Project } from '../data/site';
 interface Props { project: Project; index: number }
 const { project, index } = Astro.props;
-const looks = [
-  'radial-gradient(80% 80% at 30% 20%,#d9f99d,transparent 60%),linear-gradient(135deg,#4ade80,#065f46)',
-  'radial-gradient(80% 80% at 30% 20%,#fde68a,transparent 60%),linear-gradient(135deg,#fb923c,#7c2d12)',
-  'radial-gradient(80% 80% at 30% 20%,#c7d2fe,transparent 60%),linear-gradient(135deg,#2457e7,#0b1120)',
+// Flat printed plates: a paper tint and an ink colour per project, no gradients.
+const plates = [
+  { bg: '#1f3d2b', ink: '#e9e4c9' },
+  { bg: '#d9a441', ink: '#2a1a0c' },
+  { bg: '#2b3a8c', ink: '#efebe3' },
 ];
+const plate = plates[index % plates.length];
 ---
-<a class="card work tilt reveal" data-tilt="6" href={`/work/${project.slug}/`}>
-  <span class="glare"></span>
-  <div class="art" style={`background:${looks[index % 3]}`} aria-hidden="true"><span class="pop">{project.name}</span></div>
-  <div class="meta pop">
-    <span class={project.type === 'Owned product' ? 'tag' : 'tag neutral'}>{project.type}</span>
-    <span class="cat">{project.category}</span>
+<a class="work reveal" href={`/work/${project.slug}/`}>
+  <div class="plate" style={`--bg:${plate.bg};--fg:${plate.ink}`} aria-hidden="true">
+    <span class="fig label">Fig. {index + 1}</span>
+    <span class="pname">{project.name}</span>
   </div>
-  <h3 class="h-card pop">{project.name}</h3>
+  <div class="meta">
+    <span class={project.type === 'Owned product' ? 'tag red' : 'tag'}>{project.type}</span>
+    <span class="label">{project.category}</span>
+  </div>
+  <h3 class="h-card">{project.name}</h3>
   <p class="sum">{project.summary}</p>
-  <span class="link-arrow">Read the Story<Arrow /></span>
+  <span class="ulink">Read the story<Arrow /></span>
 </a>
 
 <style>
-  .work { padding: 14px 14px 32px !important; display: flex !important; flex-direction: column; }
-  .work > :not(.art):not(.glare) { margin-inline: 18px; }
-  .art { aspect-ratio: 4 / 3; border-radius: 16px; margin-bottom: 26px; display: grid; place-items: center; overflow: hidden; }
-  .art span { font-family: var(--display); font-size: clamp(36px, 3.6vw, 52px); font-weight: 800; letter-spacing: -0.05em; color: #fff; text-shadow: 0 10px 40px rgba(0,0,0,0.35); transition: transform 0.8s var(--ease); }
-  .work:hover .art span { transform: translateZ(60px) scale(1.08); }
-  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px; }
-  .cat { font-size: 14px; color: var(--muted); }
-  .sum { color: var(--muted); margin: 12px 18px 20px !important; flex: 1; }
-  .link-arrow { margin-top: auto; }
+  .work { display: flex; flex-direction: column; text-decoration: none; }
+  .plate { position: relative; aspect-ratio: 5 / 4; background: var(--bg); color: var(--fg); display: grid; place-items: center; overflow: hidden; margin-bottom: 22px; }
+  .fig { position: absolute; left: 16px; top: 14px; color: var(--fg); opacity: 0.75; }
+  .pname { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: clamp(38px, 4vw, 60px); letter-spacing: -0.03em; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; transition: transform 0.9s var(--ease); }
+  .work:hover .pname { transform: scale(1.06) rotate(-2deg); }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .h-card { margin-bottom: 10px; }
+  .sum { color: var(--ink-2); flex: 1; }
+  .ulink { align-self: flex-start; }
 </style>

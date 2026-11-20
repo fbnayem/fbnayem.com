@@ -1,0 +1,36 @@
+---
+import Arrow from './Arrow.astro';
+import type { Venture } from '../data/site';
+interface Props { venture: Venture; index: number }
+const { venture, index } = Astro.props;
+---
+<li class="row reveal">
+  <a href={venture.url} target="_blank" rel="noopener">
+    <span class="n label">0{index + 1}</span>
+    <span class="name">{venture.name}</span>
+    <span class="what">{venture.short}</span>
+    <span class="dom label">{venture.domain}<Arrow diagonal /></span>
+    <span class="sr-only"> (opens {venture.domain} in a new tab)</span>
+  </a>
+</li>
+
+<style>
+  .row { border-top: 1px solid var(--rule); }
+  a { position: relative; display: grid; gap: 8px 24px; align-items: baseline; padding: 26px 0; text-decoration: none; grid-template-columns: 44px 1fr; isolation: isolate; }
+  a::before { content: ''; position: absolute; inset: 0 calc(-1 * var(--gutter)); z-index: -1; background: var(--red); transform: scaleY(0); transform-origin: bottom; transition: transform 0.55s var(--ease); }
+  .name { font-family: var(--serif); font-weight: 360; font-size: clamp(40px, 6vw, 88px); line-height: 0.95; letter-spacing: -0.035em; transition: transform 0.55s var(--ease), font-variation-settings 0.55s; font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 0; }
+  .what { grid-column: 2; color: var(--ink-2); max-width: 36ch; }
+  .dom { grid-column: 2; display: inline-flex; gap: 6px; align-items: center; }
+  .dom :global(svg) { width: 13px; height: 13px; }
+  @media (min-width: 900px) {
+    a { grid-template-columns: 64px 1.2fr 1fr 180px; padding: 34px 0; }
+    .what, .dom { grid-column: auto; }
+    .dom { justify-self: end; }
+  }
+  @media (hover: hover) {
+    a:hover { color: var(--paper); }
+    a:hover::before { transform: scaleY(1); }
+    a:hover .name { transform: translateX(14px); font-style: italic; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
+    a:hover .what, a:hover .label { color: var(--paper); }
+  }
+</style>

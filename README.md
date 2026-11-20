@@ -15,7 +15,9 @@ npm run build    # static output in dist/
 - `src/data/site.ts`: all page copy (profile, ventures, projects, principles, FAQ). Planned to move into Sanity.
 - `src/styles/global.css`: design tokens (colours, type, spacing) and shared styles.
 - `src/pages/`: Home, About, Ventures, Work (+ case studies), Insights, Connect, Privacy, 404.
-- `src/scripts/motion.ts`: smooth scroll, text reveals, parallax, 3D tilt, magnetic buttons (GSAP + Lenis).
+- `src/scripts/motion.ts`: smooth scroll, word reveals, rule draw-ins, parallax (GSAP + Lenis).
+- `src/scripts/hero3d.ts`: the Three.js contour-line sheet behind the homepage headline.
+- Type: Fraunces (display), Schibsted Grotesk (text), IBM Plex Mono (labels). Palette: paper #efebe3, ink #161412, vermilion #e0401b.
 - `src/scripts/hero3d.ts`: the Three.js hero object.
 - Page transitions use Astro view transitions. All motion respects reduced-motion settings.
 

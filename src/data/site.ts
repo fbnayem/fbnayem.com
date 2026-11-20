@@ -20,6 +20,7 @@ export const nav = [
   { label: 'Ventures', href: '/ventures/' },
   { label: 'Work', href: '/work/' },
   { label: 'Insights', href: '/insights/' },
+  { label: 'Connect', href: '/connect/' },
 ];
 
 export type Venture = {

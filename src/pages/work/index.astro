@@ -6,11 +6,15 @@ import CtaBand from '../../components/CtaBand.astro';
 import { projects } from '../../data/site';
 ---
 <Base title="Selected Work | Fazle Bary Nayem" description="Explore selected projects delivered through Abedin Tech and product work across software, AI, and digital growth.">
-  <PageHero eyebrow="Selected work" title="Projects that connect technology with business needs." lead="Selected client work through Abedin Tech, alongside products I'm building. These stories explain the problem, the work involved, and what the experience taught me." />
+  <PageHero index="Work" eyebrow="Selected work" title="Projects that connect technology with <em>business needs.</em>" lead="Selected client work through Abedin Tech, alongside products I'm building. These stories explain the problem, the work involved, and what the experience taught me." />
   <section class="section">
-    <div class="wrap grid-3">
+    <div class="wrap works">
       {projects.map((p, i) => <WorkCard project={p} index={i} />)}
     </div>
   </section>
   <CtaBand />
 </Base>
+<style>
+  .works { display: grid; gap: 56px 32px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+  @media (min-width: 1100px) { .works > :nth-child(2) { margin-top: 96px; } }
+</style>

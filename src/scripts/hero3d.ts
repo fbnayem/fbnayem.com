@@ -1,6 +1,10 @@
 import * as THREE from 'three';
 
-// Morphing iridescent blob + particle halo. Reacts to pointer and scroll.
+/*
+  An engraved "contour sheet": rows of ink lines over a slowly shifting terrain,
+  seen at an angle like a plate in an old atlas. The pointer lifts a soft ridge.
+  Drawn in the page's ink colour, so it reads as print rather than a glowing effect.
+*/
 const noise = /* glsl */ `
 vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
 vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}
@@ -22,91 +26,106 @@ float snoise(vec3 v){
   return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
 }`;
 
+const ROWS = 64;
+const COLS = 220;
+const WIDTH = 12;
+const DEPTH = 9;
+
 export function mountHero(canvas: HTMLCanvasElement, reduced: boolean): () => void {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
-  camera.position.z = 6;
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  camera.position.set(0, 5.2, 9.5);
+  camera.lookAt(0, -0.2, 0);
+
+  // One line strip per row, built as segments so the whole sheet is a single draw call.
+  const positions: number[] = [];
+  const rowIndex: number[] = [];
+  for (let r = 0; r < ROWS; r++) {
+    const z = (r / (ROWS - 1) - 0.5) * DEPTH;
+    for (let c = 0; c < COLS - 1; c++) {
+      const x0 = (c / (COLS - 1) - 0.5) * WIDTH;
+      const x1 = ((c + 1) / (COLS - 1) - 0.5) * WIDTH;
+      positions.push(x0, 0, z, x1, 0, z);
+      rowIndex.push(r, r);
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.setAttribute('aRow', new THREE.Float32BufferAttribute(rowIndex, 1));
 
   const uniforms = {
     uTime: { value: 0 },
-    uAmp: { value: 0.3 },
-    uMouse: { value: new THREE.Vector2() },
+    uPointer: { value: new THREE.Vector2(0, 0) },
+    uLift: { value: 0 },
+    uInk: { value: new THREE.Color('#161412') },
+    uRed: { value: new THREE.Color('#e0401b') },
+    uAccentRow: { value: 40 },
   };
 
-  const blobMat = new THREE.ShaderMaterial({
+  const mat = new THREE.ShaderMaterial({
     uniforms,
+    transparent: true,
+    depthWrite: false,
     vertexShader: /* glsl */ `
       ${noise}
-      uniform float uTime; uniform float uAmp; uniform vec2 uMouse;
-      varying vec3 vNormal; varying vec3 vView; varying float vN;
+      uniform float uTime; uniform vec2 uPointer; uniform float uLift;
+      attribute float aRow;
+      varying float vRow; varying float vFade; varying float vH;
       void main(){
         vec3 p = position;
-        float n = snoise(p * 0.9 + vec3(uTime * 0.25, uTime * 0.18, uMouse.x * 0.6));
-        float n2 = snoise(p * 2.2 - uTime * 0.3) * 0.25;
-        float d = (n + n2) * uAmp;
-        vN = d;
-        p += normal * d;
-        vec4 mv = modelViewMatrix * vec4(p, 1.0);
-        vNormal = normalize(normalMatrix * normal);
-        vView = normalize(-mv.xyz);
-        gl_Position = projectionMatrix * mv;
+        float h = snoise(vec3(p.x * 0.22, p.z * 0.28, uTime * 0.07)) * 0.75
+                + snoise(vec3(p.x * 0.6, p.z * 0.6, uTime * 0.12)) * 0.18;
+        // a broad ridge that rises toward the right, so the sheet has a landform, not just ripples
+        h += smoothstep(-4.0, 5.0, p.x) * 0.9 * (1.0 - abs(p.z) / ${(DEPTH / 2).toFixed(1)});
+        float d = distance(p.xz, uPointer);
+        h += uLift * exp(-d * d * 0.55) * 1.1;
+        p.y = h;
+        vRow = aRow; vH = h;
+        vFade = smoothstep(${(WIDTH / 2).toFixed(1)}, ${(WIDTH / 2 - 2.5).toFixed(1)}, abs(p.x)) * smoothstep(${(DEPTH / 2).toFixed(1)}, ${(DEPTH / 2 - 1.5).toFixed(1)}, abs(p.z));
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
       }`,
     fragmentShader: /* glsl */ `
-      uniform float uTime; varying vec3 vNormal; varying vec3 vView; varying float vN;
+      uniform vec3 uInk; uniform vec3 uRed; uniform float uAccentRow;
+      varying float vRow; varying float vFade; varying float vH;
       void main(){
-        float fres = pow(1.0 - max(dot(normalize(vNormal), vView), 0.0), 2.2);
-        vec3 blue = vec3(0.14, 0.34, 0.91);
-        vec3 lime = vec3(0.78, 1.0, 0.24);
-        vec3 violet = vec3(0.45, 0.32, 1.0);
-        vec3 deep = vec3(0.02, 0.03, 0.08);
-        float t = 0.5 + 0.5 * sin(vN * 6.0 + uTime * 0.6);
-        vec3 col = mix(deep, mix(blue, violet, t), 0.55 + vN * 0.8);
-        col += fres * mix(blue, lime, smoothstep(0.35, 1.0, t)) * 1.05;
-        gl_FragColor = vec4(col, 1.0);
+        bool accent = abs(vRow - uAccentRow) < 0.5;
+        vec3 col = accent ? uRed : uInk;
+        float a = (accent ? 0.95 : 0.55 + clamp(vH, 0.0, 1.0) * 0.35) * vFade;
+        gl_FragColor = vec4(col, a);
       }`,
   });
-  const blob = new THREE.Mesh(new THREE.IcosahedronGeometry(1.15, 128), blobMat);
-  scene.add(blob);
-
-  // Wire shell
-  const shell = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(2.25, 2),
-    new THREE.MeshBasicMaterial({ color: 0x5b82ff, wireframe: true, transparent: true, opacity: 0.12 }),
-  );
-  scene.add(shell);
-
-  // Particle halo
-  const count = 1400;
-  const pos = new Float32Array(count * 3);
-  for (let i = 0; i < count; i++) {
-    const r = 2.6 + Math.random() * 2.2;
-    const th = Math.random() * Math.PI * 2;
-    const ph = Math.acos(2 * Math.random() - 1);
-    pos[i * 3] = r * Math.sin(ph) * Math.cos(th);
-    pos[i * 3 + 1] = r * Math.sin(ph) * Math.sin(th) * 0.6;
-    pos[i * 3 + 2] = r * Math.cos(ph);
-  }
-  const pGeo = new THREE.BufferGeometry();
-  pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xc8ff3d, size: 0.022, transparent: true, opacity: 0.75, depthWrite: false }));
-  scene.add(particles);
+  const sheet = new THREE.LineSegments(geo, mat);
+  scene.add(sheet);
 
   const resize = () => {
-    const { clientWidth: w, clientHeight: h } = canvas.parentElement || canvas;
+    const { clientWidth: w, clientHeight: h } = canvas;
+    if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    camera.position.z = w < 700 ? 7.5 : 6;
+    camera.position.z = w < 700 ? 12.5 : 9.5;
     camera.updateProjectionMatrix();
   };
   resize();
   const ro = new ResizeObserver(resize);
-  ro.observe(canvas.parentElement || canvas);
+  ro.observe(canvas);
 
-  const target = new THREE.Vector2();
-  const onMove = (e: PointerEvent) => { target.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); };
+  // Pointer → a point on the sheet plane (y = 0)
+  const ray = new THREE.Raycaster();
+  const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+  const hit = new THREE.Vector3();
+  const target = new THREE.Vector2(2, 0);
+  let liftTarget = 0;
+  const onMove = (e: PointerEvent) => {
+    const r = canvas.getBoundingClientRect();
+    const ndc = new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    if (ray.ray.intersectPlane(plane, hit)) { target.set(hit.x, hit.z); liftTarget = 1; }
+  };
+  const onLeave = () => { liftTarget = 0; };
   window.addEventListener('pointermove', onMove);
+  document.addEventListener('pointerleave', onLeave);
 
   let visible = true;
   const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
@@ -119,22 +138,20 @@ export function mountHero(canvas: HTMLCanvasElement, reduced: boolean): () => vo
     if (!visible) return;
     const t = clock.getElapsedTime();
     uniforms.uTime.value = t;
-    uniforms.uMouse.value.lerp(target, 0.05);
-    const scroll = Math.min(window.scrollY / innerHeight, 1.5);
-    uniforms.uAmp.value = 0.3 + scroll * 0.3;
-    blob.rotation.y = t * 0.15 + uniforms.uMouse.value.x * 0.6;
-    blob.rotation.x = uniforms.uMouse.value.y * 0.4;
-    shell.rotation.y = -t * 0.08; shell.rotation.z = t * 0.05;
-    particles.rotation.y = t * 0.04 + uniforms.uMouse.value.x * 0.2;
-    scene.position.y = scroll * 0.9;
+    uniforms.uPointer.value.lerp(target, 0.06);
+    uniforms.uLift.value += (liftTarget - uniforms.uLift.value) * 0.04;
+    const scroll = Math.min(window.scrollY / window.innerHeight, 1.2);
+    sheet.rotation.y = -0.18 + scroll * 0.25;
+    camera.position.y = 5.2 - scroll * 1.6;
+    camera.lookAt(0, -0.2, 0);
     renderer.render(scene, camera);
   };
-  if (reduced) { uniforms.uTime.value = 2; renderer.render(scene, camera); } else loop();
+  if (reduced) { uniforms.uTime.value = 8; renderer.render(scene, camera); } else loop();
 
   return () => {
     cancelAnimationFrame(raf); ro.disconnect(); io.disconnect();
     window.removeEventListener('pointermove', onMove);
-    blob.geometry.dispose(); blobMat.dispose(); shell.geometry.dispose(); (shell.material as THREE.Material).dispose();
-    pGeo.dispose(); (particles.material as THREE.Material).dispose(); renderer.dispose();
+    document.removeEventListener('pointerleave', onLeave);
+    geo.dispose(); mat.dispose(); renderer.dispose();
   };
 }
