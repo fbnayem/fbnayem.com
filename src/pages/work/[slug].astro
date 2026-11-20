@@ -14,7 +14,7 @@ const others = projects.filter((p) => p.slug !== project.slug);
 <Base title={`${project.name} | Selected Work | Fazle Bary Nayem`} description={project.summary}>
   <PageHero eyebrow={`${project.type} · ${project.category}`} title={project.title} lead={project.summary} />
   <section class="section">
-    <div class="wrap split">
+    <div class="wrap split-2">
       <aside class="sticky reveal">
         <div class="card side">
           <p class="k">Project</p><p class="v">{project.name}</p>
@@ -39,7 +39,7 @@ const others = projects.filter((p) => p.slug !== project.slug);
       <h2 class="h-card" style="margin-bottom:24px">More work</h2>
       <div class="grid-3">
         {others.map((p) => (
-          <a class="card" href={`/work/${p.slug}/`}>
+          <a class="card tilt" data-tilt="6" href={`/work/${p.slug}/`}><span class="glare"></span>
             <span class={p.type === 'Owned product' ? 'tag' : 'tag neutral'}>{p.type}</span>
             <h3 class="h-card" style="margin:16px 0 8px">{p.name}</h3>
             <p style="color:var(--muted);margin:0">{p.summary}</p>
@@ -54,9 +54,9 @@ const others = projects.filter((p) => p.slug !== project.slug);
   .side .k { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin: 0 0 4px; }
   .side .v { font-weight: 600; margin: 0 0 20px; }
   .side .v:last-child { margin-bottom: 0; }
-  .side a { color: var(--accent); }
-  .lesson { margin: 40px 0; padding: 32px; border-radius: var(--radius); background: var(--dark); color: var(--on-dark); }
-  .lesson p { color: var(--on-dark); font-size: clamp(22px, 2.2vw, 28px); line-height: 1.3; letter-spacing: -0.02em; font-weight: 600; margin: 14px 0 0; }
-  .lesson .eyebrow { color: #8fb0ff; }
+  .side a { color: var(--lime); }
+  .lesson { margin: 48px 0; padding: 40px; border-radius: var(--radius); background: var(--lime); color: #050608; }
+  .lesson p { color: #050608; font-family: var(--display); font-size: clamp(26px, 2.8vw, 38px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 700; margin: 16px 0 0; }
+  .lesson .eyebrow { color: #050608; }
   .more { padding-top: 0; }
 </style>

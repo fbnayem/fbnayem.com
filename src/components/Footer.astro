@@ -1,42 +1,40 @@
 ---
+import Arrow from './Arrow.astro';
 import { profile } from '../data/site';
 const year = new Date().getFullYear();
-const links = [
-  ['About', '/about/'], ['Ventures', '/ventures/'], ['Work', '/work/'],
-  ['Insights', '/insights/'], ['Connect', '/connect/'], ['Privacy', '/privacy/'],
-];
+const links = [['About', '/about/'], ['Ventures', '/ventures/'], ['Work', '/work/'], ['Insights', '/insights/'], ['Connect', '/connect/'], ['Privacy', '/privacy/']];
 ---
-<footer class="footer dark">
-  <div class="wrap footer-grid">
-    <div>
-      <p class="f-name">{profile.name}</p>
-      <p class="f-role">{profile.role}</p>
-      <p class="f-line">{profile.footerLine}</p>
+<footer class="footer">
+  <div class="wrap">
+    <a href="/connect/" class="big" data-magnetic>
+      <span>Let's build</span><span class="grad">something.</span>
+      <span class="circle" aria-hidden="true"><Arrow diagonal /></span>
+    </a>
+    <div class="grid">
+      <div>
+        <p class="f-name">{profile.name}</p>
+        <p class="f-role">{profile.role}</p>
+        <p class="f-line">{profile.footerLine}</p>
+      </div>
+      <nav aria-label="Footer"><ul>{links.map(([label, href]) => <li><a href={href}>{label}</a></li>)}</ul></nav>
     </div>
-    <nav aria-label="Footer">
-      <ul>
-        {links.map(([label, href]) => <li><a href={href}>{label}</a></li>)}
-      </ul>
-    </nav>
-  </div>
-  <div class="wrap f-bottom">
-    <span>© {year} {profile.name}</span>
-    <span>Bangladesh · Global</span>
+    <div class="bottom"><span>© {year} {profile.name}</span><span>Bangladesh → Global</span></div>
   </div>
 </footer>
 
 <style>
-  .footer { padding-block: 72px 32px; }
-  .footer-grid { display: grid; gap: 40px; grid-template-columns: 1fr; }
-  @media (min-width: 760px) { .footer-grid { grid-template-columns: 1.4fr 1fr; } }
-  .f-name { font-size: 22px; font-weight: 650; letter-spacing: -0.02em; margin: 0 0 4px; }
-  .f-role { color: #8fb0ff; font-weight: 500; margin: 0 0 16px; }
-  .f-line { color: var(--on-dark-muted); max-width: 40ch; }
+  .footer { position: relative; padding-block: clamp(96px, 12vw, 160px) 36px; border-top: 1px solid var(--line); overflow: hidden; }
+  .big { display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.25em; font-family: var(--display); font-weight: 700; font-size: clamp(48px, 10vw, 160px); letter-spacing: -0.055em; line-height: 0.95; text-decoration: none; }
+  .circle { width: clamp(64px, 8vw, 120px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: var(--lime); color: #050608; margin-left: 0.15em; transition: transform 0.6s var(--ease); }
+  .circle :global(svg) { width: 40%; height: 40%; }
+  .big:hover .circle { transform: rotate(45deg) scale(1.08); }
+  .grid { display: grid; gap: 40px; margin-top: clamp(64px, 8vw, 120px); grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .grid { grid-template-columns: 1.4fr 1fr; } }
+  .f-name { font-family: var(--display); font-size: 24px; font-weight: 700; letter-spacing: -0.03em; margin: 0 0 4px; }
+  .f-role { color: var(--lime); font-weight: 500; margin: 0 0 16px; }
+  .f-line { color: var(--muted); max-width: 40ch; }
   ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 24px; }
-  ul a { display: inline-flex; min-height: 44px; align-items: center; color: var(--on-dark-muted); text-decoration: none; transition: color 0.2s; }
-  ul a:hover { color: #fff; }
-  .f-bottom {
-    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 56px; padding-top: 24px;
-    border-top: 1px solid var(--on-dark-line); color: var(--on-dark-muted); font-size: 14px;
-  }
+  ul a { display: inline-flex; min-height: 44px; align-items: center; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  ul a:hover { color: var(--ink); }
+  .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
 </style>

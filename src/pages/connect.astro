@@ -9,7 +9,7 @@ const types = ['Project', 'Partnership', 'Investment', 'Speaking or media', 'Gen
   <PageHero eyebrow="Let's Connect" title="Tell me what you're working on." lead="For projects, partnerships, product conversations, investment discussions, or speaking and media inquiries, send a short introduction below. Include the context that will help me understand your idea and the next step you have in mind." />
 
   <section class="section">
-    <div class="wrap split">
+    <div class="wrap split-2">
       <div class="reveal">
         <div class="card notice">
           <span class="tag">Opening soon</span>
@@ -38,7 +38,7 @@ const types = ['Project', 'Partnership', 'Investment', 'Speaking or media', 'Gen
   </section>
 
   <section class="section faq-wrap">
-    <div class="wrap split">
+    <div class="wrap split-2">
       <div class="reveal"><span class="eyebrow">Questions</span><h2 class="h-section" style="margin-top:18px">Before you write</h2></div>
       <div class="faq reveal">
         {faqs.map((f) => (
@@ -53,29 +53,30 @@ const types = ['Project', 'Partnership', 'Investment', 'Speaking or media', 'Gen
 </Base>
 
 <style>
-  .notice { display: grid; gap: 14px; justify-items: start; background: var(--accent-soft); border-color: #cdd9fb; }
-  .notice p { margin: 0; color: #24325c; }
+  .notice { display: grid; gap: 14px; justify-items: start; background: rgba(200,255,61,0.06); border-color: rgba(200,255,61,0.3); }
+  .notice p { margin: 0; color: #dfe3ec; }
   .form { display: grid; gap: 18px; }
   .row { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
   label { display: grid; gap: 8px; font-weight: 600; font-size: 15px; }
-  label span { color: var(--accent); }
+  label span { color: var(--lime); }
   small { color: var(--muted); font-weight: 400; }
   input, select, textarea {
-    font: inherit; font-weight: 400; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
+    font: inherit; font-weight: 400; color: var(--ink); background: rgba(255,255,255,0.04); border: 1px solid var(--line-2); border-radius: 12px;
     padding: 12px 14px; min-height: 48px; transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
   }
-  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--lime); box-shadow: 0 0 0 4px rgba(200,255,61,0.15); }
+  option { background: #0d1220; }
   textarea { resize: vertical; }
   .note, .status { font-size: 14px; color: var(--muted); margin: 0; }
-  .note a { color: var(--accent); }
+  .note a { color: var(--lime); }
   button[disabled] { opacity: 0.5; cursor: not-allowed; box-shadow: none; transform: none; justify-self: start; }
-  .faq-wrap { background: #efede6; }
+  .faq-wrap { border-top: 1px solid var(--line); }
   .faq details { border-top: 1px solid var(--line); }
   .faq details:last-child { border-bottom: 1px solid var(--line); }
-  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-weight: 600; font-size: 19px; letter-spacing: -0.01em; min-height: 44px; }
+  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-family: var(--display); font-weight: 600; font-size: clamp(20px, 2vw, 26px); letter-spacing: -0.01em; min-height: 44px; }
   summary::-webkit-details-marker { display: none; }
   .plus { position: relative; width: 14px; height: 14px; flex: none; }
-  .plus::before, .plus::after { content: ''; position: absolute; left: 0; top: 6px; width: 14px; height: 2px; background: var(--accent); transition: transform 0.3s var(--ease); }
+  .plus::before, .plus::after { content: ''; position: absolute; left: 0; top: 6px; width: 14px; height: 2px; background: var(--lime); transition: transform 0.3s var(--ease); }
   .plus::after { transform: rotate(90deg); }
   details[open] .plus::after { transform: rotate(0); }
   details p { color: var(--muted); padding-bottom: 22px; margin: 0; max-width: 60ch; }

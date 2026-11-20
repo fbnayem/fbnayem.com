@@ -4,37 +4,31 @@ import type { Project } from '../data/site';
 interface Props { project: Project; index: number }
 const { project, index } = Astro.props;
 const looks = [
-  'linear-gradient(135deg,#d9f99d,#4ade80 55%,#15803d)',
-  'linear-gradient(135deg,#fde68a,#fb923c 55%,#9a3412)',
-  'linear-gradient(135deg,#c7d2fe,#2457e7 60%,#0b1120)',
+  'radial-gradient(80% 80% at 30% 20%,#d9f99d,transparent 60%),linear-gradient(135deg,#4ade80,#065f46)',
+  'radial-gradient(80% 80% at 30% 20%,#fde68a,transparent 60%),linear-gradient(135deg,#fb923c,#7c2d12)',
+  'radial-gradient(80% 80% at 30% 20%,#c7d2fe,transparent 60%),linear-gradient(135deg,#2457e7,#0b1120)',
 ];
 ---
-<a class="card work reveal" href={`/work/${project.slug}/`} style={`transition-delay:${index * 80}ms`}>
-  <div class="art" style={`background:${looks[index % 3]}`} aria-hidden="true">
-    <span>{project.name}</span>
-  </div>
-  <div class="meta">
+<a class="card work tilt reveal" data-tilt="6" href={`/work/${project.slug}/`}>
+  <span class="glare"></span>
+  <div class="art" style={`background:${looks[index % 3]}`} aria-hidden="true"><span class="pop">{project.name}</span></div>
+  <div class="meta pop">
     <span class={project.type === 'Owned product' ? 'tag' : 'tag neutral'}>{project.type}</span>
     <span class="cat">{project.category}</span>
   </div>
-  <h3 class="h-card">{project.name}</h3>
+  <h3 class="h-card pop">{project.name}</h3>
   <p class="sum">{project.summary}</p>
   <span class="link-arrow">Read the Story<Arrow /></span>
 </a>
 
 <style>
-  .work { padding: 12px 12px 28px !important; display: flex !important; flex-direction: column; }
-  .work > :not(.art) { margin-inline: 16px; }
-  .art {
-    aspect-ratio: 16 / 10; border-radius: 12px; margin-bottom: 22px; display: grid; place-items: center; overflow: hidden; position: relative;
-  }
-  .art span {
-    font-size: clamp(28px, 3vw, 40px); font-weight: 750; letter-spacing: -0.04em; color: rgba(255,255,255,0.92);
-    text-shadow: 0 8px 30px rgba(0,0,0,0.25); transition: transform 0.6s var(--ease);
-  }
-  .work:hover .art span { transform: scale(1.06); }
-  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .work { padding: 14px 14px 32px !important; display: flex !important; flex-direction: column; }
+  .work > :not(.art):not(.glare) { margin-inline: 18px; }
+  .art { aspect-ratio: 4 / 3; border-radius: 16px; margin-bottom: 26px; display: grid; place-items: center; overflow: hidden; }
+  .art span { font-family: var(--display); font-size: clamp(36px, 3.6vw, 52px); font-weight: 800; letter-spacing: -0.05em; color: #fff; text-shadow: 0 10px 40px rgba(0,0,0,0.35); transition: transform 0.8s var(--ease); }
+  .work:hover .art span { transform: translateZ(60px) scale(1.08); }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px; }
   .cat { font-size: 14px; color: var(--muted); }
-  .sum { color: var(--muted); margin: 10px 16px 18px !important; flex: 1; }
+  .sum { color: var(--muted); margin: 12px 18px 20px !important; flex: 1; }
   .link-arrow { margin-top: auto; }
 </style>

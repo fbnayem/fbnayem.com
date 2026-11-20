@@ -7,12 +7,19 @@ const {
   label = "Let's Connect",
 } = Astro.props;
 ---
-<section class="section dark cta-band">
-  <div class="glow" aria-hidden="true"></div>
-  <div class="wrap reveal">
+<section class="section cta">
+  <div class="wrap inner" data-scale-in>
+    <div class="orb" aria-hidden="true"></div>
     <span class="eyebrow">{eyebrow}</span>
-    <h2 class="h-section">{title}</h2>
+    <h2 class="h-display" data-split>{title}</h2>
     <p class="lead">{body}</p>
-    <a href="/connect/" class="btn btn-primary">{label}<Arrow /></a>
+    <a href="/connect/" class="btn btn-primary" data-magnetic>{label}<Arrow /></a>
   </div>
 </section>
+<style>
+  .cta { padding-block: clamp(40px, 6vw, 80px); }
+  .inner { position: relative; overflow: hidden; isolation: isolate; text-align: center; border-radius: 24px; padding: clamp(72px, 10vw, 140px) clamp(24px, 5vw, 80px); background: linear-gradient(160deg, #101935, #0a0f1d); border: 1px solid var(--line); }
+  .orb { position: absolute; z-index: -1; left: 50%; top: 100%; width: 1000px; aspect-ratio: 1; translate: -50% -45%; border-radius: 50%; background: conic-gradient(from 90deg, var(--accent), var(--lime), var(--accent-2), var(--accent)); filter: blur(110px); opacity: 0.45; animation: spin 18s linear infinite; }
+  h2 { max-width: 14ch; margin: 24px auto; }
+  .lead { margin: 0 auto 40px; }
+</style>

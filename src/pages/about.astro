@@ -2,14 +2,20 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Portrait from '../components/Portrait.astro';
 import { profile } from '../data/site';
 const interests = ['AI voice agents', 'Customer communication', 'Workflow automation', 'SaaS products', 'Client services to repeatable software'];
 ---
 <Base title="About Fazle Bary Nayem | Background and Approach" description="Learn about Nayem's background in software, AI automation, and business, and the experience shaping his work as a founder.">
   <PageHero eyebrow="About Nayem" title="I build at the intersection of technology and business." />
+  <section class="photo-band">
+    <div class="wrap" data-scale-in>
+      <Portrait name="working" alt="Fazle Bary Nayem at work" ratio="16 / 8" label="Your working photo goes here" />
+    </div>
+  </section>
 
   <section class="section">
-    <div class="wrap split">
+    <div class="wrap split-2">
       <aside class="sticky reveal">
         <div class="card facts">
           <dl>
@@ -51,12 +57,13 @@ const interests = ['AI voice agents', 'Customer communication', 'Workflow automa
 <style>
   .facts dl { margin: 0; display: grid; }
   .facts dl > div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .photo-band { padding-top: 0; }
   .facts dl > div:first-child { padding-top: 0; }
   .facts dl > div:last-child { border-bottom: 0; padding-bottom: 0; }
   dt { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
   dd { margin: 0; font-weight: 600; }
   .chips { list-style: none; padding: 0; margin: 0 0 1.4em; display: flex; flex-wrap: wrap; gap: 10px; }
-  .chips li { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-size: 15px; font-weight: 500; }
-  blockquote { margin: 0; padding: 24px 28px; border-left: 3px solid var(--accent); background: #fff; border-radius: 0 12px 12px 0; color: #2a2d33; }
-  .prose a { color: var(--accent); }
+  .chips li { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.05); font-size: 15px; font-weight: 500; }
+  blockquote { margin: 0; padding: 24px 28px; border-left: 3px solid var(--accent); background: rgba(255,255,255,0.05); border-radius: 0 16px 16px 0; color: #dfe3ec; border-left-color: var(--lime); }
+  .chips li:hover { border-color: var(--lime); color: var(--lime); }
 </style>

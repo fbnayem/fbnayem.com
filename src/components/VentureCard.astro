@@ -3,35 +3,34 @@ import Arrow from './Arrow.astro';
 import type { Venture } from '../data/site';
 interface Props { venture: Venture; index: number }
 const { venture, index } = Astro.props;
-const hues = ['#2457e7', '#0ea5a4', '#a855f7'];
+const hues = ['#2457e7', '#14b8a6', '#a855f7'];
 ---
-<a class="card venture reveal" href={venture.url} rel="noopener" target="_blank" style={`--hue:${hues[index % 3]}; transition-delay:${index * 80}ms`}>
-  <div class="top">
+<a class="card venture tilt" data-tilt="7" href={venture.url} rel="noopener" target="_blank" style={`--hue:${hues[index % 3]}`}>
+  <span class="glare"></span>
+  <span class="bg-num" aria-hidden="true">0{index + 1}</span>
+  <div class="top pop">
     <span class="logo" aria-hidden="true">{venture.name.charAt(0)}</span>
     <span class="domain">{venture.domain}</span>
   </div>
-  <h3 class="h-card">{venture.name}</h3>
-  <p class="short">{venture.short}</p>
-  <p class="detail">{venture.shortDetail}</p>
-  <span class="link-arrow">{venture.cta}<Arrow diagonal /><span class="sr-only"> (opens {venture.domain} in a new tab)</span></span>
+  <div class="body pop">
+    <p class="cat">{venture.category}</p>
+    <h3 class="h-card">{venture.name}</h3>
+    <p class="short">{venture.short}</p>
+    <p class="detail">{venture.shortDetail}</p>
+  </div>
+  <span class="link-arrow pop">{venture.cta}<Arrow diagonal /><span class="sr-only"> (opens {venture.domain} in a new tab)</span></span>
 </a>
 
 <style>
-  .venture { position: relative; overflow: hidden; display: flex !important; flex-direction: column; gap: 12px; min-height: 360px; }
-  .venture::before {
-    content: ''; position: absolute; right: -80px; top: -80px; width: 220px; height: 220px; border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--hue) 30%, transparent), transparent 70%);
-    transition: transform 0.6s var(--ease);
-  }
-  .venture:hover::before { transform: scale(1.4); }
-  .top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
-  .logo {
-    width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; font-weight: 750; font-size: 20px; color: #fff;
-    background: var(--hue); box-shadow: 0 10px 24px -10px var(--hue);
-  }
-  .domain { font-size: 13px; color: var(--muted); font-weight: 500; }
-  .short { font-weight: 600; margin: 0; }
-  .detail { color: var(--muted); font-size: 16px; flex: 1; }
-  .link-arrow { margin-top: auto; }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .venture { display: flex !important; flex-direction: column; gap: 20px; min-height: 520px; overflow: hidden;
+    background: radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--hue) 38%, transparent), transparent 60%), linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02)); }
+  .bg-num { position: absolute; right: -10px; bottom: -40px; font-family: var(--display); font-weight: 800; font-size: 240px; line-height: 1; letter-spacing: -0.08em; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.08); pointer-events: none; }
+  .top { display: flex; align-items: center; justify-content: space-between; }
+  .logo { width: 60px; height: 60px; border-radius: 18px; display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 26px; color: #fff; background: var(--hue); box-shadow: 0 16px 40px -12px var(--hue); }
+  .domain { font-size: 13px; color: var(--muted); font-weight: 500; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; }
+  .body { margin-top: auto; }
+  .cat { color: var(--muted); font-size: 14px; font-weight: 500; margin-bottom: 12px; }
+  .h-card { font-size: clamp(34px, 3.4vw, 48px); margin-bottom: 14px; }
+  .short { font-weight: 600; font-size: 19px; margin: 0 0 10px; }
+  .detail { color: var(--muted); font-size: 16px; margin: 0; }
 </style>
