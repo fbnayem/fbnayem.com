@@ -90,15 +90,23 @@ function initParallax() {
 
 function initHorizontal() {
   const mm = gsap.matchMedia();
-  mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+  // Pin only when the whole section fits on screen and there is real overflow to scroll through.
+  mm.add('(min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)', () => {
     document.querySelectorAll<HTMLElement>('[data-hscroll]').forEach((section) => {
       const track = section.querySelector<HTMLElement>('[data-hscroll-track]');
-      if (!track) return;
-      const dist = () => Math.max(0, track.scrollWidth - (track.parentElement?.clientWidth || window.innerWidth) + 40);
+      const clip = track?.parentElement;
+      if (!track || !clip) return;
+      const dist = () => Math.max(0, track.scrollWidth - clip.clientWidth);
+      if (dist() < 120 || section.offsetHeight > window.innerHeight) return;
+      clip.style.overflow = 'hidden';
       gsap.to(track, {
         x: () => -dist(), ease: 'none',
-        scrollTrigger: { trigger: section, start: 'top top', end: () => '+=' + dist(), scrub: 1, pin: true, invalidateOnRefresh: true },
+        scrollTrigger: {
+          trigger: section, start: 'center center', end: () => '+=' + dist(),
+          scrub: 1, pin: true, invalidateOnRefresh: true,
+        },
       });
+      return () => { clip.style.overflow = ''; };
     });
   });
   cleanups.push(() => mm.revert());
