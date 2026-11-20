@@ -88,11 +88,27 @@ function initParallax() {
   });
 }
 
+function hasWebGL() {
+  try {
+    const c = document.createElement('canvas');
+    return !!(c.getContext('webgl2') || c.getContext('webgl'));
+  } catch {
+    return false;
+  }
+}
+
 async function initHero3D() {
   const canvas = document.querySelector<HTMLCanvasElement>('[data-hero3d]');
   if (!canvas) return;
-  const { mountHero } = await import('./hero3d');
-  disposeHero = mountHero(canvas, reduce());
+  // Without WebGL (old devices, some locked-down browsers) show a static drawing of the same sheet.
+  const fallback = () => canvas.classList.add('is-static');
+  if (!hasWebGL()) return fallback();
+  try {
+    const { mountHero } = await import('./hero3d');
+    disposeHero = mountHero(canvas, reduce());
+  } catch {
+    fallback();
+  }
 }
 
 function init() {

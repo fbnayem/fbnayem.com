@@ -8,7 +8,7 @@ export const profile = {
   primaryRole: 'Founder & CEO of Abedin Tech',
   headline: 'I build AI products that help businesses work better.',
   intro:
-    'Most AI stalls between the demo and the daily workflow. We build for what happens after: the call answered, the lead followed up, the post published. Two products of our own, and a delivery team at Abedin Tech that puts AI to work inside real businesses.',
+    'Most AI stalls between the demo and the daily workflow. I build for what happens after: the call answered, the lead followed up, the post published. Two products of my own, and a team at Abedin Tech that puts AI to work inside real businesses.',
   location: 'Based in Bangladesh. Building for a global market.',
   footerLine: 'Building practical AI products and business systems from Bangladesh.',
   shortBio:
@@ -20,7 +20,6 @@ export const nav = [
   { label: 'Ventures', href: '/ventures/' },
   { label: 'Work', href: '/work/' },
   { label: 'Vision', href: '/vision/' },
-  { label: 'Insights', href: '/insights/' },
   { label: 'Connect', href: '/connect/' },
 ];
 

@@ -5,7 +5,7 @@ import Portrait from '../components/Portrait.astro';
 import VentureRow from '../components/VentureRow.astro';
 import WorkCard from '../components/WorkCard.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { profile, ventures, projects, principles, vision } from '../data/site';
+import { profile, ventures, projects, principles } from '../data/site';
 const skills = ['Answer every call', 'Follow up every lead', 'Book the meeting', 'Publish on time', 'Hand off to a person', 'Measure the outcome'];
 const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
 ---
@@ -42,7 +42,7 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
           <Portrait alt="Portrait of Fazle Bary Nayem" caption="Fazle Bary Nayem, Bangladesh" />
         </div>
         <div>
-          <p class="big-text" data-scrub-words>Most AI projects stall between the demo and the daily workflow. Running a delivery company showed me exactly where they break: follow-up, handoff and systems that don't talk to each other. That is what I build for.</p>
+          <p class="big-text reveal">Most AI projects stall between the demo and the daily workflow. Running a delivery company showed me exactly where they break: follow-up, handoff and systems that don't talk to each other. That is what I build for.</p>
           <p class="sig"><em>Fazle Bary Nayem</em><span class="label">Founder, Dhaka</span></p>
           <a href="/about/" class="ulink">The longer story<Arrow /></a>
         </div>
@@ -54,7 +54,7 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
     <div class="wrap">
       <div class="marker"><span class="label">(02)</span><span class="label">Ventures</span></div>
       <div class="sec-head">
-        <h2 class="h-section" data-split>Three companies. <em>One focus.</em></h2>
+        <h2 class="h-section" data-split>Three ventures. <em>One focus.</em></h2>
         <p class="lead">AI that runs real business workflows: one company that delivers it for clients, two products that package it for everyone else.</p>
       </div>
       <ol class="vlist">
@@ -101,17 +101,8 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
       <div class="marker"><span class="label">(05)</span><span class="label">Where this is going</span></div>
       <div class="sec-head">
         <h2 class="h-section" data-split>AI that does the work <em>between the tools.</em></h2>
-        <p class="lead">{vision.thesis}</p>
+        <p class="lead">The next ten years: turn Callinva and SaleAnto into one operating layer for growing businesses, and build a product team in Bangladesh that ships to a global standard.</p>
       </div>
-      <ol class="hz">
-        {vision.horizons.map((h, i) => (
-          <li class="reveal">
-            <span class="hk">{h.key}</span>
-            <p class="hl">{h.label}</p>
-            <ul>{vision.roadmap.map((r) => <li><span class="label">{r.venture}</span>{i === 0 ? r.now : i === 1 ? r.next : r.later}</li>)}</ul>
-          </li>
-        ))}
-      </ol>
       <a href="/vision/" class="ulink all">The full plan, plus the 10 and 20-year vision<Arrow /></a>
     </div>
   </section>
@@ -123,6 +114,7 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
   .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding-block: 120px 56px; overflow: hidden; isolation: isolate; }
   .sheet { position: absolute; z-index: -1; top: 0; right: 0; width: 100%; height: 70%; opacity: 0.55;
     -webkit-mask-image: linear-gradient(90deg, transparent 5%, #000 60%); mask-image: linear-gradient(90deg, transparent 5%, #000 60%); }
+  .sheet.is-static { background: url('/contours.svg') center / cover no-repeat; }
   @media (min-width: 1000px) { .sheet { width: 70%; height: 82%; opacity: 1; } }
   .hero .marker .label { background: var(--paper); padding-right: 8px; }
   .hero .marker .label:last-child { padding: 0 0 0 8px; }
@@ -160,13 +152,5 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
   .principles p { color: var(--ink-2); margin: 0; }
 
   .future .lead { max-width: 52ch; }
-  .hz { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 32px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
-  .hz > li { padding-top: 24px; border-top: 1px solid var(--rule-strong); }
-  .hz > li:first-child { border-top-color: var(--red); }
-  .hk { font-family: var(--serif); font-style: italic; font-size: 44px; line-height: 1; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
-  .hz > li:first-child .hk { color: var(--red); }
-  .hl { margin: 10px 0 24px; color: var(--muted); }
-  .hz ul { list-style: none; margin: 0 0 40px; padding: 0; }
-  .hz ul li { padding: 14px 0; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: 16px; }
-  .hz ul .label { display: block; margin-bottom: 4px; }
+  .future .sec-head { margin-bottom: 40px; }
 </style>

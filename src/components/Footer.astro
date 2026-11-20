@@ -2,7 +2,9 @@
 import Arrow from './Arrow.astro';
 import { profile } from '../data/site';
 const year = new Date().getFullYear();
-const links = [['About', '/about/'], ['Ventures', '/ventures/'], ['Work', '/work/'], ['Vision', '/vision/'], ['Insights', '/insights/'], ['Connect', '/connect/'], ['Privacy', '/privacy/']];
+const links = [['About', '/about/'], ['Ventures', '/ventures/'], ['Work', '/work/'], ['Vision', '/vision/'], ['Connect', '/connect/'], ['Privacy', '/privacy/']];
+// Add LinkedIn and a direct email here once confirmed.
+const elsewhere = [['Abedin Tech', 'https://abedintech.com'], ['Callinva', 'https://callinva.com'], ['SaleAnto', 'https://saleanto.com']];
 ---
 <footer class="footer night">
   <div class="wrap">
@@ -17,8 +19,9 @@ const links = [['About', '/about/'], ['Ventures', '/ventures/'], ['Work', '/work
         <p class="f-line">{profile.role}. {profile.footerLine}</p>
       </div>
       <nav aria-label="Footer"><ul>{links.map(([label, href]) => <li><a href={href} class="ulink">{label}</a></li>)}</ul></nav>
+      <div><p class="label">Elsewhere</p><ul class="out">{elsewhere.map(([label, href]) => <li><a href={href} class="ulink" target="_blank" rel="noopener">{label} ↗</a></li>)}</ul></div>
     </div>
-    <div class="bottom label"><span>© {year} {profile.name}</span><span>Set in Fraunces and Schibsted Grotesk</span></div>
+    <div class="bottom label"><span>© {year} {profile.name}</span><a href="/privacy/">Privacy</a></div>
   </div>
 </footer>
 
@@ -29,7 +32,9 @@ const links = [['About', '/about/'], ['Ventures', '/ventures/'], ['Work', '/work
   .arrow :global(svg) { width: 38%; height: 38%; }
   .big:hover .arrow { background: var(--red); border-color: var(--red); transform: rotate(45deg); }
   .grid { display: grid; gap: 40px; margin-top: clamp(64px, 8vw, 120px); padding-top: 28px; border-top: 1px solid var(--rule); }
-  @media (min-width: 760px) { .grid { grid-template-columns: 1.4fr 1fr; } }
+  @media (min-width: 760px) { .grid { grid-template-columns: 1.3fr 1fr 0.6fr; } }
+  .out { grid-template-columns: 1fr; margin-top: 4px; }
+  .bottom a { color: inherit; }
   .f-name { font-family: var(--serif); font-size: 26px; margin: 0 0 8px; font-variation-settings: 'opsz' 48; }
   .f-line { color: var(--muted); max-width: 42ch; }
   ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
