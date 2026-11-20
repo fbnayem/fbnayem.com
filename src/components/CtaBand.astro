@@ -1,0 +1,18 @@
+---
+import Arrow from './Arrow.astro';
+const {
+  eyebrow = "Let's talk",
+  title = 'Have something worth building?',
+  body = "I'm interested in practical problems, thoughtful partnerships, and products that make work easier. Tell me what you're working on.",
+  label = "Let's Connect",
+} = Astro.props;
+---
+<section class="section dark cta-band">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap reveal">
+    <span class="eyebrow">{eyebrow}</span>
+    <h2 class="h-section">{title}</h2>
+    <p class="lead">{body}</p>
+    <a href="/connect/" class="btn btn-primary">{label}<Arrow /></a>
+  </div>
+</section>

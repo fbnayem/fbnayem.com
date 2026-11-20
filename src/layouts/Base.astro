@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { title: string; description: string; heroTone?: 'dark' | 'light'; noindex?: boolean }
+const { title, description, heroTone = 'dark', noindex = false } = Astro.props;
+// Search indexing stays off until the site moves to fbnayem.com. Set PUBLIC_ALLOW_INDEXING=true there.
+const allowIndexing = import.meta.env.PUBLIC_ALLOW_INDEXING === 'true' && !noindex;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {!allowIndexing && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#0b1120" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>document.documentElement.classList.remove('no-js');</script>
+    <slot name="head" />
+  </head>
+  <body data-hero-tone={heroTone}>
+    <a href="#main" class="skip">Skip to content</a>
+    <Nav />
+    <main id="main"><slot /></main>
+    <Footer />
+    <script>
+      const els = document.querySelectorAll<HTMLElement>('.reveal');
+      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach((el) => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

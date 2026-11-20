@@ -1,0 +1,16 @@
+---
+const { eyebrow, title, lead } = Astro.props;
+---
+<section class="page-hero dark">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow ph-rise">{eyebrow}</span>
+    <h1 class="h-display ph-rise" style="--d:.08s">{title}</h1>
+    {lead && <p class="lead ph-rise" style="--d:.16s">{lead}</p>}
+    <slot />
+  </div>
+</section>
+<style>
+  .ph-rise { animation: phr 1s var(--ease) both; animation-delay: var(--d, 0s); }
+  @keyframes phr { from { opacity: 0; transform: translateY(16px); } }
+</style>

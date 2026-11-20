@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import VentureCard from '../components/VentureCard.astro';
+import WorkCard from '../components/WorkCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { profile, ventures, projects, principles } from '../data/site';
+---
+<Base
+  title="Fazle Bary Nayem | Founder and AI Product Builder"
+  description="Meet Fazle Bary Nayem, founder of Abedin Tech and builder behind Callinva and SaleAnto. Explore his ventures, selected work, and insights."
+>
+  <section class="hero dark">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="grid-lines" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="name rise" style="--d:0s">{profile.name} <span>· {profile.role}</span></p>
+        <h1 class="h-display rise" style="--d:.08s">I build <em>AI products</em> that help businesses work better.</h1>
+        <p class="lead rise" style="--d:.16s">{profile.intro}</p>
+        <div class="actions rise" style="--d:.24s">
+          <a href="/work/" class="btn btn-primary">Explore My Work<Arrow /></a>
+          <a href="/connect/" class="btn btn-ghost">Let's Connect</a>
+        </div>
+        <p class="loc rise" style="--d:.32s"><span class="dot" aria-hidden="true"></span>{profile.location}</p>
+      </div>
+      <div class="rise" style="--d:.2s"><HeroVisual /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Ventures</span>
+        <h2 class="h-section">What I'm building</h2>
+        <p class="lead">My work spans client delivery and product development. These are the ventures at the center of that work.</p>
+      </div>
+      <div class="grid-3">
+        {ventures.map((v, i) => <VentureCard venture={v} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section work-section">
+    <div class="wrap">
+      <div class="section-head reveal row-head">
+        <div>
+          <span class="eyebrow">Selected work</span>
+          <h2 class="h-section">Work that explains my approach</h2>
+          <p class="lead">A selection of client projects delivered through Abedin Tech and products I'm helping build.</p>
+        </div>
+        <a href="/work/" class="btn btn-ghost">All work<Arrow /></a>
+      </div>
+      <div class="grid-3">
+        {projects.map((p, i) => <WorkCard project={p} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky reveal">
+        <span class="eyebrow">About</span>
+        <h2 class="h-section" style="margin-top:18px">Business experience shapes what I build</h2>
+      </div>
+      <div class="reveal">
+        <p class="lead" style="color:var(--ink)">Running Abedin Tech has put me close to the problems businesses face every day: attracting customers, delivering work, managing follow-up, and keeping systems connected. That experience shapes the products I'm building today.</p>
+        <p class="lead">I'm interested in AI that fits into how a business actually works. The goal is to make a useful task easier, help people make better decisions, and create systems a team can rely on.</p>
+        <a href="/about/" class="link-arrow">More About Me<Arrow /></a>
+
+        <ol class="principles">
+          {principles.map((p, i) => (
+            <li class="reveal" style={`transition-delay:${i * 80}ms`}>
+              <span class="num">0{i + 1}</span>
+              <div><h3>{p.title}</h3><p>{p.body}</p></div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero { min-height: 100svh; display: flex; align-items: center; padding-block: 130px 90px; }
+  .hero-glow {
+    position: absolute; z-index: -1; width: 900px; height: 900px; right: -260px; top: -200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(36,87,231,0.42), transparent 62%);
+  }
+  .grid-lines {
+    position: absolute; inset: 0; z-index: -1; opacity: 0.5;
+    background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 72px 72px; mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent);
+  }
+  .hero-grid { display: grid; gap: 56px; align-items: center; grid-template-columns: 1fr; }
+  @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.25fr 0.75fr; gap: 72px; } }
+  .name { font-weight: 600; font-size: 15px; letter-spacing: 0.01em; margin-bottom: 24px; color: #fff; }
+  .name span { color: var(--on-dark-muted); font-weight: 500; }
+  h1 em { font-style: normal; background: linear-gradient(90deg, #8fb0ff, #4f7bff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .lead { margin: 28px 0 36px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .loc { display: flex; align-items: center; gap: 10px; margin: 36px 0 0; font-size: 15px; color: var(--on-dark-muted); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 4px rgba(52,211,153,0.18); }
+  .rise { animation: rise 1s var(--ease) both; animation-delay: var(--d); }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+
+  .work-section { background: #efede6; }
+  .row-head { max-width: none; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px; }
+  .row-head > div { display: grid; gap: 18px; max-width: 720px; }
+
+  .principles { list-style: none; padding: 0; margin: 56px 0 0; display: grid; }
+  .principles li { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 28px 0; border-top: 1px solid var(--line); }
+  .principles li:last-child { border-bottom: 1px solid var(--line); }
+  .num { font-size: 14px; font-weight: 600; color: var(--accent); padding-top: 4px; font-variant-numeric: tabular-nums; }
+  .principles h3 { font-size: 21px; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .principles p { color: var(--muted); margin: 0; }
+</style>

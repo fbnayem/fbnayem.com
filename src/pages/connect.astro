@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Arrow from '../components/Arrow.astro';
+import { faqs } from '../data/site';
+const types = ['Project', 'Partnership', 'Investment', 'Speaking or media', 'General'];
+---
+<Base title="Contact Fazle Bary Nayem | Projects and Partnerships" description="Contact Nayem about projects, partnerships, investment conversations, speaking opportunities, or media inquiries.">
+  <PageHero eyebrow="Let's Connect" title="Tell me what you're working on." lead="For projects, partnerships, product conversations, investment discussions, or speaking and media inquiries, send a short introduction below. Include the context that will help me understand your idea and the next step you have in mind." />
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="reveal">
+        <div class="card notice">
+          <span class="tag">Opening soon</span>
+          <p>The contact form is being connected and will start accepting messages shortly. For project work today, you can reach my team at Abedin Tech.</p>
+          <a class="link-arrow" href="https://abedintech.com" target="_blank" rel="noopener">Contact Abedin Tech<Arrow diagonal /><span class="sr-only"> (opens in a new tab)</span></a>
+        </div>
+      </div>
+      <form class="card form reveal" aria-describedby="form-status" onsubmit="return false">
+        <div class="row">
+          <label>Name <span aria-hidden="true">*</span><input name="name" required autocomplete="name" /></label>
+          <label>Email <span aria-hidden="true">*</span><input name="email" type="email" required autocomplete="email" /></label>
+        </div>
+        <label>Inquiry type <span aria-hidden="true">*</span>
+          <select name="type" required>
+            <option value="">Choose one</option>
+            {types.map((t) => <option>{t}</option>)}
+          </select>
+        </label>
+        <label>Company or website <small>(optional)</small><input name="company" autocomplete="organization" /></label>
+        <label>Message <span aria-hidden="true">*</span><textarea name="message" rows="6" required></textarea></label>
+        <p class="note">Your details will be used to respond to this inquiry. Read the <a href="/privacy/">Privacy page</a> for more information.</p>
+        <button class="btn btn-primary" type="submit" disabled>Send Message</button>
+        <p id="form-status" class="status">Sending opens once the form is connected.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section faq-wrap">
+    <div class="wrap split">
+      <div class="reveal"><span class="eyebrow">Questions</span><h2 class="h-section" style="margin-top:18px">Before you write</h2></div>
+      <div class="faq reveal">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}<span class="plus" aria-hidden="true"></span></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notice { display: grid; gap: 14px; justify-items: start; background: var(--accent-soft); border-color: #cdd9fb; }
+  .notice p { margin: 0; color: #24325c; }
+  .form { display: grid; gap: 18px; }
+  .row { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  label { display: grid; gap: 8px; font-weight: 600; font-size: 15px; }
+  label span { color: var(--accent); }
+  small { color: var(--muted); font-weight: 400; }
+  input, select, textarea {
+    font: inherit; font-weight: 400; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 14px; min-height: 48px; transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  textarea { resize: vertical; }
+  .note, .status { font-size: 14px; color: var(--muted); margin: 0; }
+  .note a { color: var(--accent); }
+  button[disabled] { opacity: 0.5; cursor: not-allowed; box-shadow: none; transform: none; justify-self: start; }
+  .faq-wrap { background: #efede6; }
+  .faq details { border-top: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 1px solid var(--line); }
+  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-weight: 600; font-size: 19px; letter-spacing: -0.01em; min-height: 44px; }
+  summary::-webkit-details-marker { display: none; }
+  .plus { position: relative; width: 14px; height: 14px; flex: none; }
+  .plus::before, .plus::after { content: ''; position: absolute; left: 0; top: 6px; width: 14px; height: 2px; background: var(--accent); transition: transform 0.3s var(--ease); }
+  .plus::after { transform: rotate(90deg); }
+  details[open] .plus::after { transform: rotate(0); }
+  details p { color: var(--muted); padding-bottom: 22px; margin: 0; max-width: 60ch; }
+</style>

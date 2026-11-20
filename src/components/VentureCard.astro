@@ -1,0 +1,37 @@
+---
+import Arrow from './Arrow.astro';
+import type { Venture } from '../data/site';
+interface Props { venture: Venture; index: number }
+const { venture, index } = Astro.props;
+const hues = ['#2457e7', '#0ea5a4', '#a855f7'];
+---
+<a class="card venture reveal" href={venture.url} rel="noopener" target="_blank" style={`--hue:${hues[index % 3]}; transition-delay:${index * 80}ms`}>
+  <div class="top">
+    <span class="logo" aria-hidden="true">{venture.name.charAt(0)}</span>
+    <span class="domain">{venture.domain}</span>
+  </div>
+  <h3 class="h-card">{venture.name}</h3>
+  <p class="short">{venture.short}</p>
+  <p class="detail">{venture.shortDetail}</p>
+  <span class="link-arrow">{venture.cta}<Arrow diagonal /><span class="sr-only"> (opens {venture.domain} in a new tab)</span></span>
+</a>
+
+<style>
+  .venture { position: relative; overflow: hidden; display: flex !important; flex-direction: column; gap: 12px; min-height: 360px; }
+  .venture::before {
+    content: ''; position: absolute; right: -80px; top: -80px; width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--hue) 30%, transparent), transparent 70%);
+    transition: transform 0.6s var(--ease);
+  }
+  .venture:hover::before { transform: scale(1.4); }
+  .top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  .logo {
+    width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; font-weight: 750; font-size: 20px; color: #fff;
+    background: var(--hue); box-shadow: 0 10px 24px -10px var(--hue);
+  }
+  .domain { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .short { font-weight: 600; margin: 0; }
+  .detail { color: var(--muted); font-size: 16px; flex: 1; }
+  .link-arrow { margin-top: auto; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>

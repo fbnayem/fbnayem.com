@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { profile } from '../data/site';
+const interests = ['AI voice agents', 'Customer communication', 'Workflow automation', 'SaaS products', 'Client services to repeatable software'];
+---
+<Base title="About Fazle Bary Nayem | Background and Approach" description="Learn about Nayem's background in software, AI automation, and business, and the experience shaping his work as a founder.">
+  <PageHero eyebrow="About Nayem" title="I build at the intersection of technology and business." />
+
+  <section class="section">
+    <div class="wrap split">
+      <aside class="sticky reveal">
+        <div class="card facts">
+          <dl>
+            <div><dt>Name</dt><dd>{profile.name}</dd></div>
+            <div><dt>Role</dt><dd>{profile.primaryRole}</dd></div>
+            <div><dt>Building</dt><dd>Callinva and SaleAnto</dd></div>
+            <div><dt>Based in</dt><dd>Bangladesh</dd></div>
+            <div><dt>Works with</dt><dd>Businesses in the US, UK and beyond</dd></div>
+          </dl>
+        </div>
+      </aside>
+      <div class="prose reveal">
+        <p class="lead" style="color:var(--ink)">I'm Fazle Bary Nayem, founder and CEO of Abedin Tech. I'm based in Bangladesh and work with businesses and collaborators across international markets, including the US and UK.</p>
+        <p>My experience brings together software development, AI automation, digital marketing, product thinking, and the everyday work of running a business. I care about how these areas connect, because a useful product needs to work for both the people using it and the business behind it.</p>
+
+        <h2>From client work to products</h2>
+        <p>Through Abedin Tech, I work with a team delivering websites, software, automation, and digital growth projects. That work has given me a practical view of how businesses find customers, manage operations, and use technology.</p>
+        <p>It has also shaped my interest in building products. When a problem appears across different businesses, I want to understand whether it can be solved in a way that more people can use.</p>
+        <p>Today, that includes Callinva, focused on AI calling and customer communication, and SaleAnto, focused on social content creation and scheduling. These products reflect different parts of the same interest: making business workflows easier to manage.</p>
+
+        <h2>How I approach the work</h2>
+        <p>I like to start with the problem and ask what a useful result would look like. From there, the work is a cycle of building, testing, listening, and improving. I value clear communication, practical design, and attention to the details that affect real users.</p>
+        <p>I also believe good systems should make room for people. Automation should have clear boundaries, reliable information, and an easy path to human support when needed.</p>
+
+        <h2>What I am focused on</h2>
+        <ul class="chips">{interests.map((i) => <li>{i}</li>)}</ul>
+        <p>I share lessons from this work through the <a href="/insights/">Insights</a> section.</p>
+        <p>Building from Bangladesh gives me a strong connection to local talent and an international perspective on the businesses we serve. I want to keep creating opportunities for useful technology and capable people to reach a wider market.</p>
+
+        <h2>Short biography</h2>
+        <blockquote>{profile.shortBio}</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand eyebrow="Start a conversation" title="Working on something that connects with this?" body="If you are working on a business problem, a product, or a partnership that connects with this work, I'd be glad to hear about it." label="Start a Conversation" />
+</Base>
+
+<style>
+  .facts dl { margin: 0; display: grid; }
+  .facts dl > div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .facts dl > div:first-child { padding-top: 0; }
+  .facts dl > div:last-child { border-bottom: 0; padding-bottom: 0; }
+  dt { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  dd { margin: 0; font-weight: 600; }
+  .chips { list-style: none; padding: 0; margin: 0 0 1.4em; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chips li { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-size: 15px; font-weight: 500; }
+  blockquote { margin: 0; padding: 24px 28px; border-left: 3px solid var(--accent); background: #fff; border-radius: 0 12px 12px 0; color: #2a2d33; }
+  .prose a { color: var(--accent); }
+</style>

@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { upcomingArticles } from '../data/site';
+const categories = ['AI and Automation', 'Building Products', 'Founder Notes'];
+---
+<Base title="Insights on AI and Building Businesses | Nayem" description="Read practical perspectives from Fazle Bary Nayem on AI products, business automation, and building companies.">
+  <PageHero eyebrow="Insights" title="Notes from building products and businesses." lead="Practical thoughts on AI, business systems, and the work of building useful products. I write about decisions, experiments, and lessons from running Abedin Tech and developing new ventures." />
+  <section class="section">
+    <div class="wrap">
+      <ul class="cats reveal" aria-label="Categories">{categories.map((c) => <li>{c}</li>)}</ul>
+      <div class="section-head reveal">
+        <span class="eyebrow">In the works</span>
+        <h2 class="h-section">The first articles</h2>
+        <p class="lead">These pieces are being written now and will appear here as they are published.</p>
+      </div>
+      <ol class="upcoming">
+        {upcomingArticles.map((a, i) => (
+          <li class="reveal" style={`transition-delay:${i * 80}ms`}>
+            <span class="n">0{i + 1}</span>
+            <div><span class="tag neutral">{a.category}</span><h3>{a.title}</h3></div>
+            <span class="soon">Coming soon</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .cats { list-style: none; padding: 0; margin: 0 0 64px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .cats li { padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-weight: 600; font-size: 15px; }
+  .upcoming { list-style: none; padding: 0; margin: 0; }
+  .upcoming li { display: grid; grid-template-columns: 48px 1fr; gap: 16px 20px; align-items: start; padding: 32px 0; border-top: 1px solid var(--line); }
+  .upcoming li:last-child { border-bottom: 1px solid var(--line); }
+  @media (min-width: 760px) { .upcoming li { grid-template-columns: 64px 1fr auto; align-items: center; } }
+  .n { font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; padding-top: 4px; }
+  .upcoming h3 { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -0.025em; margin-top: 12px; }
+  .soon { grid-column: 2; font-size: 14px; color: var(--muted); font-weight: 500; }
+  @media (min-width: 760px) { .soon { grid-column: auto; } }
+</style>

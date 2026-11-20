@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { projects } from '../../data/site';
+---
+<Base title="Selected Work | Fazle Bary Nayem" description="Explore selected projects delivered through Abedin Tech and product work across software, AI, and digital growth.">
+  <PageHero eyebrow="Selected work" title="Projects that connect technology with business needs." lead="Selected client work through Abedin Tech, alongside products I'm building. These stories explain the problem, the work involved, and what the experience taught me." />
+  <section class="section">
+    <div class="wrap grid-3">
+      {projects.map((p, i) => <WorkCard project={p} index={i} />)}
+    </div>
+  </section>
+  <CtaBand />
+</Base>

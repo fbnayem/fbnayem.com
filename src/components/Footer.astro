@@ -1,0 +1,42 @@
+---
+import { profile } from '../data/site';
+const year = new Date().getFullYear();
+const links = [
+  ['About', '/about/'], ['Ventures', '/ventures/'], ['Work', '/work/'],
+  ['Insights', '/insights/'], ['Connect', '/connect/'], ['Privacy', '/privacy/'],
+];
+---
+<footer class="footer dark">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="f-name">{profile.name}</p>
+      <p class="f-role">{profile.role}</p>
+      <p class="f-line">{profile.footerLine}</p>
+    </div>
+    <nav aria-label="Footer">
+      <ul>
+        {links.map(([label, href]) => <li><a href={href}>{label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap f-bottom">
+    <span>© {year} {profile.name}</span>
+    <span>Bangladesh · Global</span>
+  </div>
+</footer>
+
+<style>
+  .footer { padding-block: 72px 32px; }
+  .footer-grid { display: grid; gap: 40px; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .footer-grid { grid-template-columns: 1.4fr 1fr; } }
+  .f-name { font-size: 22px; font-weight: 650; letter-spacing: -0.02em; margin: 0 0 4px; }
+  .f-role { color: #8fb0ff; font-weight: 500; margin: 0 0 16px; }
+  .f-line { color: var(--on-dark-muted); max-width: 40ch; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 24px; }
+  ul a { display: inline-flex; min-height: 44px; align-items: center; color: var(--on-dark-muted); text-decoration: none; transition: color 0.2s; }
+  ul a:hover { color: #fff; }
+  .f-bottom {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 56px; padding-top: 24px;
+    border-top: 1px solid var(--on-dark-line); color: var(--on-dark-muted); font-size: 14px;
+  }
+</style>
