@@ -73,7 +73,8 @@ em, .it { font-style: italic; font-variation-settings: 'opsz' 144, 'SOFT' 100, '
 .red { color: var(--red); }
 
 /* Split text hooks (GSAP animates the inner span) */
-.split .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+/* Padding gives italic overhangs and descenders room inside the clipping box. */
+.split .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.12em 0.18em; margin: 0 -0.12em -0.18em; }
 .split .w > span { display: inline-block; }
 
 /* Links and buttons: underlines and rules, not pills */

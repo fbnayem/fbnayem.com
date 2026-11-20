@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { vision } from '../data/site';
-const numerals = ['i.', 'ii.', 'iii.', 'iv.'];
+const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
 ---
 <Base title="Vision and Plans | Fazle Bary Nayem" description="Where Fazle Bary Nayem is taking Abedin Tech, Callinva and SaleAnto: the thinking behind the work, the roadmap for each venture, and what it is built with.">
   <PageHero index="Vision" eyebrow="Where this is going" title="AI that does the work <em>between the tools.</em>" lead="The thinking behind what I'm building, where each venture is heading, and what we are building it with." />
@@ -65,10 +65,33 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.'];
     </div>
   </section>
 
-  <section class="section">
+  <section class="section decades">
+    <div class="wrap">
+      <div class="marker"><span class="label">(04)</span><span class="label">The long view</span></div>
+      <div class="sec-head">
+        <h2 class="h-section" data-split>Ten years. <em>Twenty years.</em></h2>
+        <p class="lead">Plans this far out change. The direction should not. This is where the work is pointed.</p>
+      </div>
+      {vision.decades.map((d) => (
+        <article class="decade">
+          <div class="dnum" aria-hidden="true">{d.years}</div>
+          <div class="dbody">
+            <span class="label">{d.years}-year vision · {d.span}</span>
+            <h3>{d.title}</h3>
+            <p class="dvision reveal">{d.vision}</p>
+            <ol class="aims">
+              {d.aims.map((a, i) => <li class="reveal"><span class="num">{numerals[i] ?? `${i + 1}.`}</span><p>{a}</p></li>)}
+            </ol>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section commit-sec">
     <div class="wrap split-2">
       <div>
-        <div class="marker"><span class="label">(04)</span><span class="label">What won't change</span></div>
+        <div class="marker"><span class="label">(05)</span><span class="label">What won't change</span></div>
         <h2 class="h-section side-h" data-split>How we'll <em>build it</em></h2>
       </div>
       <ol class="commit">
@@ -79,7 +102,7 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.'];
 
   <section class="section invite-sec">
     <div class="wrap">
-      <div class="marker"><span class="label">(05)</span><span class="label">Who I'd like to hear from</span></div>
+      <div class="marker"><span class="label">(06)</span><span class="label">Who I'd like to hear from</span></div>
       <ul class="invite">
         {vision.invite.map((v) => <li class="reveal"><strong>{v.who}</strong> {v.what}</li>)}
       </ul>
@@ -138,4 +161,17 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.'];
   .invite { list-style: none; margin: 48px 0 0; padding: 0; display: grid; gap: 0 40px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
   .invite li { padding: 22px 0; border-top: 1px solid var(--rule-strong); color: var(--ink-2); }
   .invite strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 28px; color: var(--ink); margin-bottom: 6px; font-variation-settings: 'opsz' 48; }
+
+  .decades { background: var(--paper-2); }
+  .decade { display: grid; gap: 8px 48px; padding: 48px 0; border-top: 1px solid var(--rule-strong); }
+  .decade:last-child { border-bottom: 1px solid var(--rule-strong); }
+  @media (min-width: 960px) { .decade { grid-template-columns: 0.7fr 1.3fr; padding: 64px 0; } }
+  .dnum { font-family: var(--serif); font-weight: 300; font-size: clamp(140px, 22vw, 340px); line-height: 0.8; letter-spacing: -0.06em; color: var(--red); font-variation-settings: 'opsz' 144, 'SOFT' 0; }
+  .decade:last-child .dnum { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
+  .dbody h3 { font-size: clamp(36px, 3.8vw, 60px); letter-spacing: -0.03em; margin: 16px 0 24px; }
+  .dvision { font-family: var(--serif); font-style: italic; font-size: clamp(21px, 1.7vw, 26px); line-height: 1.4; color: var(--ink); max-width: 46ch; margin-bottom: 32px; font-variation-settings: 'opsz' 48, 'SOFT' 100, 'WONK' 1; }
+  .aims { list-style: none; margin: 0; padding: 0; }
+  .aims li { display: grid; grid-template-columns: 48px 1fr; padding: 14px 0; border-top: 1px solid var(--rule); }
+  .aims .num { margin: 0; font-size: 22px; }
+  .aims p { margin: 0; color: var(--ink-2); }
 </style>

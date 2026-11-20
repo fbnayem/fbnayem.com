@@ -8,7 +8,7 @@ export const profile = {
   primaryRole: 'Founder & CEO of Abedin Tech',
   headline: 'I build AI products that help businesses work better.',
   intro:
-    "I'm Nayem, founder of Abedin Tech and the builder behind Callinva and SaleAnto. My work brings together software, automation, and the lessons learned from helping real businesses grow.",
+    'Most AI stalls between the demo and the daily workflow. We build for what happens after: the call answered, the lead followed up, the post published. Two products of our own, and a delivery team at Abedin Tech that puts AI to work inside real businesses.',
   location: 'Based in Bangladesh. Building for a global market.',
   footerLine: 'Building practical AI products and business systems from Bangladesh.',
   shortBio:
@@ -236,6 +236,36 @@ export const vision = {
       next: 'Brand profiles the product learns from, approval steps for teams and agencies, and performance insight that shapes the next round of content.',
       later: 'A content operations system that lets a small team plan, create, approve and publish with the consistency of a full marketing department.',
       with: ['Generative text and image models', 'Brand guidelines as structured data', 'Scheduling and publishing integrations', 'Team review and approval workflows'],
+    },
+  ],
+  decades: [
+    {
+      years: 10,
+      span: '2026 to 2036',
+      title: 'From products to a platform',
+      vision:
+        'By the mid-2030s, the conversation and content work of a growing business should run on systems we built. Not as separate tools, but as one connected layer that answers, follows up, publishes and reports, with people stepping in where judgment matters.',
+      aims: [
+        'Grow Callinva and SaleAnto into products used by businesses across several countries, and connect them into one operating layer.',
+        'Make Abedin Tech a recognised AI implementation partner for software companies and mid-market businesses.',
+        'Build a product and engineering organisation in Bangladesh known for shipping software to a global standard.',
+        'Run a venture studio that turns repeated client problems into new products, and launch the next companies from it.',
+        'Train and mentor engineers, designers and product people who go on to build their own products.',
+      ],
+    },
+    {
+      years: 20,
+      span: '2026 to 2046',
+      title: 'Bangladesh as a source of global software',
+      vision:
+        'In twenty years, I want “built in Bangladesh” to mean product, not only outsourcing. A group of companies that started from this loop, serving businesses worldwide, and a generation of founders who learned from it and built further.',
+      aims: [
+        'A group of companies, built on the same deliver, notice and productise loop, serving businesses on every continent.',
+        'AI handling the routine operations of small and mid-sized businesses by default, with our products part of that infrastructure.',
+        'A reputation for Bangladesh as a place where world-class software products are designed and built.',
+        'Backing founders from Bangladesh and the region with capital, experience and a network.',
+        'Giving back through education, open tools and a talent pipeline that outlasts any single company.',
+      ],
     },
   ],
   commitments: [

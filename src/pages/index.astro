@@ -6,7 +6,7 @@ import VentureRow from '../components/VentureRow.astro';
 import WorkCard from '../components/WorkCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { profile, ventures, projects, principles, vision } from '../data/site';
-const skills = ['AI products', 'Voice agents', 'Business automation', 'Custom software', 'Digital growth', 'SaaS'];
+const skills = ['Answer every call', 'Follow up every lead', 'Book the meeting', 'Publish on time', 'Hand off to a person', 'Measure the outcome'];
 const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
 ---
 <Base
@@ -16,13 +16,13 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
   <section class="hero">
     <canvas class="sheet" data-hero3d aria-hidden="true"></canvas>
     <div class="wrap">
-      <div class="marker"><span class="label">{profile.name}</span><span class="label">{profile.role}</span></div>
-      <h1 class="display" data-split="load">I build AI products that help businesses <em class="red">work better.</em></h1>
+      <div class="marker"><span class="label">Founder &amp; CEO, Abedin Tech</span><span class="label">Builder of Callinva and SaleAnto</span></div>
+      <h1 class="display" data-split="load">AI that answers, follows up <em class="red">and gets it done.</em></h1>
       <div class="hero-foot">
         <p class="lead">{profile.intro}</p>
         <div class="actions">
-          <a href="/work/" class="btn">Explore my work<Arrow /></a>
-          <a href="/connect/" class="ulink">Let's connect</a>
+          <a href="/connect/" class="btn">Start a conversation<Arrow /></a>
+          <a href="/work/" class="ulink">See what we've shipped</a>
         </div>
       </div>
     </div>
@@ -36,14 +36,15 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
 
   <section class="section about">
     <div class="wrap">
-      <div class="marker"><span class="label">(01)</span><span class="label">About</span></div>
+      <div class="marker"><span class="label">(01)</span><span class="label">The problem</span></div>
       <div class="about-grid">
         <div class="photo" data-speed="0.08">
           <Portrait alt="Portrait of Fazle Bary Nayem" caption="Fazle Bary Nayem, Bangladesh" />
         </div>
         <div>
-          <p class="big-text" data-scrub-words>Running Abedin Tech has put me close to the problems businesses face every day: attracting customers, delivering work, managing follow-up, and keeping systems connected. That experience shapes the products I'm building today.</p>
-          <a href="/about/" class="ulink">More about me<Arrow /></a>
+          <p class="big-text" data-scrub-words>Most AI projects stall between the demo and the daily workflow. Running a delivery company showed me exactly where they break: follow-up, handoff and systems that don't talk to each other. That is what I build for.</p>
+          <p class="sig"><em>Fazle Bary Nayem</em><span class="label">Founder, Dhaka</span></p>
+          <a href="/about/" class="ulink">The longer story<Arrow /></a>
         </div>
       </div>
     </div>
@@ -53,8 +54,8 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
     <div class="wrap">
       <div class="marker"><span class="label">(02)</span><span class="label">Ventures</span></div>
       <div class="sec-head">
-        <h2 class="h-section" data-split>What I'm <em>building</em></h2>
-        <p class="lead">My work spans client delivery and product development. These are the ventures at the center of that work.</p>
+        <h2 class="h-section" data-split>Three companies. <em>One focus.</em></h2>
+        <p class="lead">AI that runs real business workflows: one company that delivers it for clients, two products that package it for everyone else.</p>
       </div>
       <ol class="vlist">
         {ventures.map((v, i) => <VentureRow venture={v} index={i} />)}
@@ -67,7 +68,7 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
     <div class="wrap">
       <div class="marker"><span class="label">(03)</span><span class="label">Selected work</span></div>
       <div class="sec-head">
-        <h2 class="h-section" data-split>Work that explains <em>my approach</em></h2>
+        <h2 class="h-section" data-split>Built, shipped, <em>and learned from.</em></h2>
         <a href="/work/" class="btn btn-line">All work<Arrow /></a>
       </div>
       <div class="works">
@@ -111,7 +112,7 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
           </li>
         ))}
       </ol>
-      <a href="/vision/" class="ulink all">Read the full vision and plan<Arrow /></a>
+      <a href="/vision/" class="ulink all">The full plan, plus the 10 and 20-year vision<Arrow /></a>
     </div>
   </section>
 
@@ -141,6 +142,7 @@ const numerals = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
   .about-grid { display: grid; gap: 48px; margin-top: 48px; }
   @media (min-width: 960px) { .about-grid { grid-template-columns: 0.42fr 1fr; gap: 80px; align-items: start; } }
   .photo { max-width: 420px; }
+  .sig { display: flex; align-items: baseline; gap: 14px; margin: -8px 0 28px; font-family: var(--serif); font-size: 24px; }
   .big-text { font-family: var(--serif); font-weight: 340; font-size: clamp(30px, 3.8vw, 58px); line-height: 1.08; letter-spacing: -0.025em; margin: 0 0 36px; font-variation-settings: 'opsz' 144, 'SOFT' 30; }
 
   .sec-head { margin-top: 48px; }

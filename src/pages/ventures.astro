@@ -6,7 +6,7 @@ import CtaBand from '../components/CtaBand.astro';
 import { ventures } from '../data/site';
 ---
 <Base title="Ventures | Abedin Tech, Callinva and SaleAnto" description="Explore the companies and products Fazle Bary Nayem is building across AI calling, social content, software, and business automation.">
-  <PageHero index="Ventures" eyebrow={`${ventures.length} ventures`} title="The businesses and products <em>I'm building.</em>" lead="My work combines client delivery with product development. Each venture explores a different way to help businesses use technology more effectively." />
+  <PageHero index="Ventures" eyebrow={`${ventures.length} ventures`} title="Three companies, one focus: <em>AI that runs real workflows.</em>" lead="One delivers AI for clients. One handles business conversations. One handles content. Together they cover the work that usually falls between a company's tools." />
 
   {ventures.map((v, i) => (
     <section class={i % 2 ? 'section v alt' : 'section v'} id={v.slug}>
